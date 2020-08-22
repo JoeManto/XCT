@@ -1,8 +1,7 @@
 
 all: clean comp
-	gcc ./xct
+	gcc ./build/xct
 comp:
-	gcc xct.c -o xct
-
+	gcc xct.c -o build/xct
 clean:
 	rm *.o xct

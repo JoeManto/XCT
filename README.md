@@ -25,8 +25,8 @@ Enviroment Context is the preconditions of your tests, see **Test Environment Co
 
 **@saveable** use the '$' token infront of a value to preform a inline save.
 
-> Alternatively, edits to `~/.xctrc` will count as a spot for saveable environment context. It should be noted though that inline enviroment saves have precedence over .xctrc. It's recommended to have the defualt fall back enviroment context in .xctrc and short term enviroment context changes by inline saves.
-**inline saves do not override .xctrc**
+> Alternatively, edits to `~/.xctrc` will count as a spot for saveable environment context. It should be noted though that inline enviroment saves have precedence over .xctrc. It's recommended to have the defualt fall back enviroment context in .xctrc and short term enviroment context changes by inline-saves.
+**Inline-saves don't replace changes in .xctrc and .xctrc changes don't override inline-saves**
 
 e.g.
 Run a test and inline save the test target

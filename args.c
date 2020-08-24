@@ -22,7 +22,7 @@ void init_args() {
   PRO_ARGS = newArgs();
 }
 
-void deinit_args() {
+void dealloc_args() {
   free(PRO_ARGS);
   PRO_ARGS = NULL;
 }
@@ -93,8 +93,6 @@ int args_setMatchingProps(char * matchingString, char type) {
   };
 
   PRO_ARGS->matchingType = matcher;
-
-  clearPropIfNeeded(PRO_ARGS->matchingString);
   args_assignStringProp(PRO_ARGS->matchingString, matchingString);
 
   return 0;
@@ -104,7 +102,6 @@ int args_setTestTargetFileProp(char * target) {
     if(target == NULL){
       return 1;
     }
-    clearPropIfNeeded(PRO_ARGS->testTargetFile);
     args_assignStringProp(PRO_ARGS->testTargetFile, target);
 }
 
@@ -131,11 +128,11 @@ int args_setProjectProps(char * projectTarget) {
       return 1;
     }
 
-    clearPropIfNeeded(PRO_ARGS->projectTarget);
     args_assignStringProp(PRO_ARGS->projectTarget, projectTarget);
 }
 
 int args_assignStringProp(char* dst, char* src){
+  clearPropIfNeeded(dst);
   dst = malloc(strlen(src) * sizeof(char));
   strcpy(dst, src);
 }

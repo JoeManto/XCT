@@ -13,12 +13,12 @@ void test_initArgs_AbleToInit() {
 }
 
 void test_deinitArgs_AbleToDeInit() {
-  deinit_args();
+  dealloc_args();
   TEST_ASSERT_NULL(PRO_ARGS);
 }
 
 /*
- *  args_setMatchingProps Tests 
+ *  args_setMatchingProps Tests
  */
 
 void test_args_setMatchingProps_NULLMatchingString_Fail() {
@@ -51,5 +51,5 @@ int main(void){
 }
 
 void tearDown(void){
-  deinit_args();
+  dealloc_args();
 }

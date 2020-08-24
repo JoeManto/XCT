@@ -103,14 +103,15 @@ int args_setTestTargetFileProp(char * target) {
       return 1;
     }
     args_assignStringProp(PRO_ARGS->testTargetFile, target);
+    return 0;
 }
 
 int args_setProjectProps(char * projectTarget) {
-    if(target == NULL){
+    if(projectTarget == NULL){
       return 1;
     }
 
-    char * tok = strtok(string, ".");
+    char * tok = strtok(projectTarget, ".");
     tok = strtok(NULL, ".");
 
     // ProjectTarget doesnt have required delim
@@ -129,10 +130,11 @@ int args_setProjectProps(char * projectTarget) {
     }
 
     args_assignStringProp(PRO_ARGS->projectTarget, projectTarget);
+    return 0;
 }
 
-int args_assignStringProp(char* dst, char* src){
-  clearPropIfNeeded(dst);
+void args_assignStringProp(char* dst, char* src){
+  args_clearPropIfNeeded(dst);
   dst = malloc(strlen(src) * sizeof(char));
   strcpy(dst, src);
 }

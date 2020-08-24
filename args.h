@@ -31,7 +31,7 @@ void dealloc_args();
 args* newArgs();
 int  parseArgs(int argc, char** argv);
 int  args_setMatchingProps(char * matchingString, char type);
-int  args_assignStringProp(char* dst, char* src);
+void args_assignStringProp(char* dst, char* src);
 void args_clearPropIfNeeded(char * ptr);
 void args_describe();
 

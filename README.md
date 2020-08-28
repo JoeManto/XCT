@@ -83,9 +83,9 @@ Note: Don't include the first "test" string that is in every XC test.
 Every command should contain one of these, but no more than than one.
 
 ```swift
-- e  :Requires extact match"
-- s  "All matching substrings"
-- d  "Default regex matching"
+- e  Requires extact match
+- s  All matching substrings
+- d  Default regex matching
 ```
 e.g. 
 ```swift
@@ -98,19 +98,19 @@ XCT -t $someViewController_Tests -d success$
 
 ```swift
   @saveable
-- t "Testing file target"
-- P "Xcode project/workspace file name"
-- S "Target scheme"
-- O "OS version"
-- D "Device"
+- t Testing file target
+- P Xcode project/workspace file name
+- S Target scheme
+- O OS version
+- D Device
 ```
 
 **Optional Flags**
 
 ```swift
---dry "List tests, but don't run"
---ugly "Negate "pretty" flag"
---clear-cache "removes all saved env flags"
+--dry List tests, but don't run
+--ugly Negate "pretty" flag
+--clear-cache removes all saved env flags
 ```
 
 .xctrc editing format

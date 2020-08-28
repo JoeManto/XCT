@@ -97,7 +97,6 @@ Test Matching Flags
 ---
 
 Note: Don't include the first "test" string that is in every XC test.
-Every command should contain one of these, but no more than than one.
 
 ```swift
 - e  Requires extact match

@@ -70,16 +70,14 @@ From a top level view XCT will gather global and inline enviroment context saves
 
 **Saveable Enviroment Context**
 
-Enviroment Context is the preconditions for your tests this includes all the of following with the keyword **@saveable** in the synopsis.
+> Enviroment Context is the preconditions for your tests this includes all the of following with the keyword **@saveable** in the synopsis.
 
 You can perform an inline save with the **'$'** token infront of any value with the **@saveable** keyword in the synopsis. These values will be saved for aslong as you want and can be cleared with **--clear-inline** or overwritten with another value by using the same **'$'** keyword. Inline saves are directory specific and act as quick and recommended way of saving re-appliable enviorment context. 
 
 > Alternatively, user specific edits to `~/.xctrc` will count as a spot for saveable environment context. It should be noted though that inline enviroment saves have precedence over .xctrc. It's recommended to have the defualt fall back enviroment context in .xctrc and short term enviroment context changes by inline-saves.
 **Inline-saves don't replace changes in .xctrc and .xctrc changes don't override inline-saves**
 
-
-
-**Tests Matching Flags**
+**Test Matching Flags**
 
 Note: Don't include the first "test" string that is in every XC test.
 Every command should contain one of these, but no more than than one.
@@ -113,6 +111,29 @@ XCT -t $someViewController_Tests -d success$
 --dry List tests, but don't run
 --ugly Negate "pretty" flag
 --clear-cache removes all saved env flags
+```
+
+.xctrc editing format
+---
+You will find that xctrc follows the vimrc editing format pretty closely.
+
+```bash
+# Specify the workspace/project
+# Every property under will be applied when xcode-select is pointing to this workspace/project
+set project Snapchat
+# Or
+set workspace Snapchat
+
+set targetFile someViewController 
+set scheme someXCscheme
+set platform iOS Simulator
+set device iPhone 8
+set os 13.3
+# List any optional or xcode passthough flags
+--ugly
+
+set project Instagram
+...
 ```
 
 Vim Friendly

@@ -82,13 +82,13 @@ You can perform an inline save with the **'$'** token infront of any value with 
 Note: Don't include the first "test" string that is in every XC test.
 Every command should contain one of these, but no more than than one.
 
-```diff
-- e  Requires extact match
-- s  All matching substrings
-- d  Default regex matching
+```swift
+- e  :Requires extact match"
+- s  "All matching substrings"
+- d  "Default regex matching"
 ```
 e.g. 
-```
+```swift
 XCT -t $someViewController_Tests -e updatesLayoutFor_HeightChange_Success
 XCT -t $someViewController_Tests -s updatesLayoutFor
 XCT -t $someViewController_Tests -d success$
@@ -96,21 +96,21 @@ XCT -t $someViewController_Tests -d success$
 
 **Test Environment Context Flags**
 
-```diff
-@@ saveable @@
-- t Testing file target
-- P Xcode project/workspace file name
-- S Target scheme
-- O OS version
-- D Device
+```swift
+  @saveable
+- t "Testing file target"
+- P "Xcode project/workspace file name"
+- S "Target scheme"
+- O "OS version"
+- D "Device"
 ```
 
 **Optional Flags**
 
-```diff
---dry List tests, but don't run
---ugly Negate "pretty" flag
---clear-cache removes all saved env flags
+```swift
+--dry "List tests, but don't run"
+--ugly "Negate "pretty" flag"
+--clear-cache "removes all saved env flags"
 ```
 
 .xctrc editing format

@@ -30,9 +30,9 @@ void init_args();
 void dealloc_args();
 args* newArgs();
 int  parseArgs(int argc, char** argv);
-int  args_setMatchingProps(char * matchingString, char type);
-void args_assignStringProp(char* dst, char* src);
-void args_clearPropIfNeeded(char * ptr);
+int  args_setMatchingProps(char* matchingString, char type);
+void args_assignStringProp(char** dst, char* src);
+void args_clearPropIfNeeded(char** ptr);
 void args_describe();
 
 #endif /* ARGS_DOT_H */

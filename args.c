@@ -87,8 +87,7 @@ int args_setMatchingProps(char * matchingString, char type) {
   };
 
   PRO_ARGS->matchingType = matcher;
-  args_assignStringProp(PRO_ARGS->matchingString, matchingString);
-
+  args_assignStringProp(&PRO_ARGS->matchingString, matchingString);
   return 0;
 }
 
@@ -96,7 +95,7 @@ int args_setTestTargetFileProp(char * target) {
     if(target == NULL){
       return 1;
     }
-    args_assignStringProp(PRO_ARGS->testTargetFile, target);
+    args_assignStringProp(&PRO_ARGS->testTargetFile, target);
     return 0;
 }
 
@@ -123,22 +122,22 @@ int args_setProjectProps(char * projectTarget) {
       return 1;
     }
 
-    args_assignStringProp(PRO_ARGS->projectTarget, projectTarget);
+    args_assignStringProp(&PRO_ARGS->projectTarget, projectTarget);
     return 0;
 }
 
-void args_assignStringProp(char* dst, char* src){
+void args_assignStringProp(char** dst, char* src){
   args_clearPropIfNeeded(dst);
-  dst = malloc(strlen(src) * sizeof(char));
-  strcpy(dst, src);
+  *dst = malloc(strlen(src) * sizeof(char));
+  strcpy(*dst, src);
 }
 
 // Expects value to be not be NULL
 // free and nullifies the given ptr
-void args_clearPropIfNeeded(char * ptr) {
-  if(ptr != NULL){
-    free(ptr);
-    ptr = NULL;
+void args_clearPropIfNeeded(char** ptr) {
+  if(*ptr != NULL){
+    free(*ptr);
+    *ptr = NULL;
   }
 }
 

@@ -5,6 +5,8 @@ comp:
 	gcc xct.c -o ./build/xct.o -c
 	gcc args.c -o ./build/args.o -c
 	gcc util.c -o ./build/util.o -c
+	gcc file_parse.c -o ./build/file_parse.o -c
+	gcc matcher.c -o ./build/matcher.o -c
 	gcc -o ./build/xct.sh ./build/*.o
 
 clean:

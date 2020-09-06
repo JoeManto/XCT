@@ -9,12 +9,6 @@ args* newArgs() {
   if(arguments == NULL){
     exitOnError("Memory Error");
   }
-
-  // Alloc defaults
-  arguments->dry = 0;
-  arguments->ugly = 0;
-  arguments->clear = 0;
-
   return arguments;
 }
 

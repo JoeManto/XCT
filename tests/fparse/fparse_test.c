@@ -3,7 +3,7 @@
 #include "../../file_parse.h"
 
 void setUp(void){
-
+  fparse_init();
 }
 
 int main(void){
@@ -13,5 +13,5 @@ int main(void){
 }
 
 void tearDown(void){
-
+  fparse_dealloc();
 }

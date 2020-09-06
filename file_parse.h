@@ -1,6 +1,8 @@
 #ifndef FILE_PARSE_DOT_H
 #define FILE_PARSE_DOT_H
 
+void fparse_init();
+void fparse_dealloc();
 void fparse_parseBufferLineByLine(char* buffer);
 int fparse_start(char * fileName);
 int fparse_commentOutUnMatchedTestCase(char * buffer);

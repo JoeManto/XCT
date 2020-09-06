@@ -11,5 +11,6 @@ typedef struct Matches {
 void matcher_init();
 void matcher_dealloc();
 int matcher_lineDoesContainTestHeader(char* line);
+int matcher_Comment(char* line);
 void matcher_appendMatch(char * line,int line_start, int line_end);
 #endif /* MATCHER_PARSER_DOT_H */

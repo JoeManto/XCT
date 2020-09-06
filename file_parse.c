@@ -14,6 +14,10 @@ void fparse_init(){
   matcher_init();
 }
 
+void fparse_dealloc(){
+  matcher_dealloc();
+}
+
 int fparse_start(char * fileName) {
   if((tar_file_ptr = fopen(fileName, "r")) == NULL){
     exitOnError("Couldn't open test target file");

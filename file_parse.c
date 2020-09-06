@@ -68,17 +68,13 @@ void fparse_parseBufferLineByLine(char* buffer){
     // Reset the null term early so all lines of the testcase can be parsed
     if(nextLine) *nextLine = '\n';
 
-    if(true/*test case matches*/){
+    if(0/*test case matches*/){
       if((offset = fparse_travelThroughTestCase(curLine)) == -1){
         exitOnError("Compilation Error - expected closing '}' token");
       }
     }else{
       fparse_commentOutUnMatchedTestCase(curLine);
     }
-
-
-
-
 
     // Increment the buffer pointer to the start of (nextLine + 1)
     // Offset is defualt 1

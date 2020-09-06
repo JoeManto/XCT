@@ -6,7 +6,6 @@ XcodeBuild does a good job of handling alot of tasks, whether thats compling, ac
 
 
 <!--ts-->
-
    * [A Synopsis](#a-synopsis)
    * [XCT Features](#xct-features)
    * [Some Quick Examples](#some-quick-examples)
@@ -20,8 +19,6 @@ XcodeBuild does a good job of handling alot of tasks, whether thats compling, ac
    * [Vim Friendly](#vim-friendly)
 
 <!--te-->
-
-[![Run on Repl.it](https://repl.it/badge/github/JoeManto/XCT)](https://repl.it/github/JoeManto/XCT)
 
 A Synopsis
 ==========

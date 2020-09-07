@@ -29,9 +29,10 @@ typedef struct Arguments {
 void init_args();
 void dealloc_args();
 args* newArgs();
-int  parseArgs(int argc, char** argv);
-int  args_setMatchingProps(char* matchingString, char type);
+int parseArgs(int argc, char** argv);
+int args_setMatchingProps(char* matchingString, char type);
 int args_setProjectProps(char * projectTarget);
+int args_setTestTargetFileProp(char * target);
 void args_assignStringProp(char** dst, char* src);
 void args_clearPropIfNeeded(char** ptr);
 void args_describe();

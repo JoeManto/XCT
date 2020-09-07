@@ -12,7 +12,7 @@ void test_initArgs_AbleToInit() {
   TEST_ASSERT_NOT_NULL(PRO_ARGS);
 }
 
-void test_deinitArgs_AbleToDeInit() {
+void test_deallocArgs_AbleToDealloc() {
   dealloc_args();
   TEST_ASSERT_NULL(PRO_ARGS);
 }
@@ -79,6 +79,22 @@ void test_args_setProjectProps_workspaceExtension_Success() {
 }
 
 /*
+* args_setTestTargetFileProp tests
+*/
+
+void test_args_setTestTargetFileProp_NULLFileTarget_Fail() {
+	int error = args_setTestTargetFileProp(NULL);
+	TEST_ASSERT_TRUE(error);
+	TEST_ASSERT_NULL(PRO_ARGS->testTargetFile);
+}
+
+void test_args_setTestTargetFileProp_ValidFileTarget_Success() {
+	int error = args_setTestTargetFileProp("testfile");
+	TEST_ASSERT_FALSE(error);
+	TEST_ASSERT_NOT_NULL(PRO_ARGS->testTargetFile);
+}
+
+/*
 * args_clearPropIfNeeded tests
 */
 
@@ -97,22 +113,40 @@ void test_args_clearPropIfNeeded_NULLValue_KeepNull(){
 	TEST_ASSERT_NULL(PRO_ARGS->matchingString);
 }
 
+/*
+* args_assignStringProp tests
+*/
+
+void test_args_assignStringProp_nonNullValue_setsGlobalArgs(){
+	char testString[] = "testString";
+	args_assignStringProp(&PRO_ARGS->matchingString, testString);
+	TEST_ASSERT_NOT_NULL(PRO_ARGS->matchingString);
+	TEST_ASSERT_EQUAL_STRING(PRO_ARGS->matchingString, testString);
+}
+
 int main(void){
   UNITY_BEGIN();
   RUN_TEST(test_initArgs_AbleToInit);
-  RUN_TEST(test_deinitArgs_AbleToDeInit);
+  RUN_TEST(test_deallocArgs_AbleToDealloc);
 
   RUN_TEST(test_args_setMatchingProps_NULLMatchingString_Fail);
   RUN_TEST(test_args_setMatchingProps_ValidMatchingString_Success);
   RUN_TEST(test_args_setMatchingProps_NULLMatchingType_DefaultsToRegex);
-	RUN_TEST(test_args_clearPropIfNeeded_NONNULLValue_Nullifies);
-	RUN_TEST(test_args_clearPropIfNeeded_NULLValue_KeepNull);
 
 	RUN_TEST(test_args_setProjectProps_NULLProject_Fail);
 	RUN_TEST(test_args_setProjectProps_WrongExtension_Fail);
 	RUN_TEST(test_args_setProjectProps_NoExtension_Fail);
 	RUN_TEST(test_args_setProjectProps_projectExtension_Success);
 	RUN_TEST(test_args_setProjectProps_workspaceExtension_Success);
+
+	RUN_TEST(test_args_setTestTargetFileProp_NULLFileTarget_Fail);
+	RUN_TEST(test_args_setTestTargetFileProp_ValidFileTarget_Success);
+
+	RUN_TEST(test_args_clearPropIfNeeded_NONNULLValue_Nullifies);
+	RUN_TEST(test_args_clearPropIfNeeded_NULLValue_KeepNull);
+
+	RUN_TEST(test_args_assignStringProp_nonNullValue_setsGlobalArgs);
+
   return UNITY_END();
 }
 

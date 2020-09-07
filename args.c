@@ -38,18 +38,23 @@ int parseArgs(int argc, char** argv) {
                 break;
             case 't':
                 printf("testTargetFile: %s\n", optarg);
+								opterr = args_setTestTargetFileProp(optarg);
                 break;
             case 'P':
                 printf("Project: %s\n", optarg);
+								opterr = args_setProjectProps(optarg);
                 break;
             case 'S':
                 printf("scheme: %s\n", optarg);
+								opterr = args_setSchemeProp(optarg);
                 break;
             case 'O':
                 printf("os: %s\n", optarg);
+								opterr = args_setOSProp(optarg);
                 break;
             case 'D':
                 printf("device: %s\n", optarg);
+								opterr = args_setDeviceProp(optarg);
                 break;
             case ':':
                 printf("option needs a value\n");
@@ -97,6 +102,30 @@ int args_setTestTargetFileProp(char * target) {
     }
     args_assignStringProp(&PRO_ARGS->testTargetFile, target);
     return 0;
+}
+
+int args_setSchemeProp(char* scheme) {
+	if(scheme == NULL){
+		return 1;
+	}
+	args_assignStringProp(&PRO_ARGS->scheme, scheme);
+	return 0;
+}
+
+int args_setOSProp(char* os) {
+	if(os == NULL){
+		return 1;
+	}
+	args_assignStringProp(&PRO_ARGS->os, os);
+	return 0;
+}
+
+int args_setDeviceProp(char* device) {
+	if(device == NULL){
+		return 1;
+	}
+	args_assignStringProp(&PRO_ARGS->device, device);
+	return 0;
 }
 
 int args_setProjectProps(char * projectTarget) {

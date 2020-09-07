@@ -41,6 +41,44 @@ void test_args_setMatchingProps_NULLMatchingType_DefaultsToRegex(){
 }
 
 /*
+* args_setProjectProps tests
+*/
+
+void test_args_setProjectProps_NULLProject_Fail() {
+	int error = args_setProjectProps(NULL);
+	TEST_ASSERT_TRUE(error);
+	TEST_ASSERT_NULL(PRO_ARGS->projectTarget);
+}
+
+void test_args_setProjectProps_WrongExtension_Fail() {
+	int error = args_setProjectProps("test.notValid");
+	TEST_ASSERT_TRUE(error);
+	TEST_ASSERT_NULL(PRO_ARGS->projectTarget);
+}
+
+void test_args_setProjectProps_NoExtension_Fail() {
+	int error = args_setProjectProps("test");
+	TEST_ASSERT_TRUE(error);
+	TEST_ASSERT_NULL(PRO_ARGS->projectTarget);
+}
+
+void test_args_setProjectProps_projectExtension_Success() {
+	int error = args_setProjectProps("test.xcodeproj");
+	enum Project projectType = project;
+	TEST_ASSERT_FALSE(error);
+	TEST_ASSERT_NOT_NULL(PRO_ARGS->projectTarget);
+	TEST_ASSERT_EQUAL_INT(PRO_ARGS->projectType, projectType);
+}
+
+void test_args_setProjectProps_workspaceExtension_Success() {
+	int error = args_setProjectProps("test.xcworkspace");
+	enum Project projectType = workspace;
+	TEST_ASSERT_FALSE(error);
+	TEST_ASSERT_NOT_NULL(PRO_ARGS->projectTarget);
+	TEST_ASSERT_EQUAL_INT(PRO_ARGS->projectType, projectType);
+}
+
+/*
 * args_clearPropIfNeeded tests
 */
 
@@ -63,10 +101,18 @@ int main(void){
   UNITY_BEGIN();
   RUN_TEST(test_initArgs_AbleToInit);
   RUN_TEST(test_deinitArgs_AbleToDeInit);
+
   RUN_TEST(test_args_setMatchingProps_NULLMatchingString_Fail);
   RUN_TEST(test_args_setMatchingProps_ValidMatchingString_Success);
   RUN_TEST(test_args_setMatchingProps_NULLMatchingType_DefaultsToRegex);
 	RUN_TEST(test_args_clearPropIfNeeded_NONNULLValue_Nullifies);
+	RUN_TEST(test_args_clearPropIfNeeded_NULLValue_KeepNull);
+
+	RUN_TEST(test_args_setProjectProps_NULLProject_Fail);
+	RUN_TEST(test_args_setProjectProps_WrongExtension_Fail);
+	RUN_TEST(test_args_setProjectProps_NoExtension_Fail);
+	RUN_TEST(test_args_setProjectProps_projectExtension_Success);
+	RUN_TEST(test_args_setProjectProps_workspaceExtension_Success);
   return UNITY_END();
 }
 

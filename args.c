@@ -103,22 +103,20 @@ int args_setProjectProps(char * projectTarget) {
     if(projectTarget == NULL){
       return 1;
     }
-
-    char * tok = strtok(projectTarget, ".");
-    tok = strtok(NULL, ".");
-
-    // ProjectTarget doesnt have required delim
-    if(tok == NULL){
-      return 1;
-    }
+		
+		char* extension;
+		if((extension = strchr(projectTarget, '.')) == NULL) {
+			// ProjectTarget doesnt have required delim
+			return 1;
+		}
 
     // Set args projectType enum to the correct value
-    char * projectType = tok;
-    if(strcmp(projectType, "xcodeproj")){
+    if(strcmp(extension, ".xcodeproj") == 0){
         PRO_ARGS->projectType = project;
-    }else if (strcmp(projectType, "xcworkspace")){
+    }else if (strcmp(extension, ".xcworkspace") == 0){
         PRO_ARGS->projectType = workspace;
     }else{
+			// Invalid ProjectTarget
       return 1;
     }
 

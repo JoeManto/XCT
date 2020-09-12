@@ -4,15 +4,12 @@
 
 int main(int argc, char** argv){
 
-  //parseArgs(argc,argv);
-  //fparse_start("./test.swift");
+	char arg1[] = "./build";
+	char arg2[] = "test";
 
-/*  char * testString = "hello this is line one\nhello this is line two\n";
+	char * args[] = {arg1,arg2};
 
-  char * nextLine = strchr(testString, '\n');
-
-  printf("%c",nextLine[20]);
-*/
+	printf("%s\n",args[1]);
 
   return 0;
 }

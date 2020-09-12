@@ -156,7 +156,11 @@ int args_setProjectProps(char * projectTarget) {
 void args_assignStringProp(char** dst, char* src){
   args_clearPropIfNeeded(dst);
   *dst = malloc(strlen(src) * sizeof(char));
-  strcpy(*dst, src);
+	if(src[0] == ' '){
+		strcpy(*dst, src+1);
+	}else{
+		strcpy(*dst, src);
+	}
 }
 
 // Expects value to be not be NULL

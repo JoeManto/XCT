@@ -16,6 +16,10 @@ argstest:clean testcomp
 	gcc ./tests/args/args_test.c -o ./build/test_args.o -c
 	gcc -o ./build/argstest.sh ./build/*.o
 	./build/argstest.sh
+argsinttest: clean testcomp
+	gcc ./tests/args/args_integration_test.c -o ./build/test_args.o -c
+	gcc -o ./build/argstest.sh ./build/*.o
+	./build/argstest.sh
 fparsetest:clean testcomp
 	gcc ./tests/fparse/fparse_test.c -o ./build/fparse_test.o -c
 	gcc -o ./build/fparsetest.sh ./build/*.o

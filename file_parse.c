@@ -19,8 +19,9 @@ void fparse_dealloc(){
 }
 
 int fparse_start(char * fileName) {
+  // Read Test target
   if((tar_file_ptr = fopen(fileName, "r")) == NULL){
-    exitOnError("Couldn't open test target file");
+    exitOnError("Couldn't open test target file", -1);
   }
 
   long length;
@@ -30,7 +31,7 @@ int fparse_start(char * fileName) {
   // Gather file size
   length = ftell(tar_file_ptr);
   if(length == -1){
-    exitOnError("ftell error");
+    exitOnError("ftell error", EFBIG);
   }
 
   // Reset Offset Back
@@ -72,9 +73,10 @@ void fparse_parseBufferLineByLine(char* buffer){
     // Reset the null term early so all lines of the testcase can be parsed
     if(nextLine) *nextLine = '\n';
 
-    if(0/*test case matches*/){
+    int testCaseMatches = 1;
+    if(testCaseMatches == 1){
       if((offset = fparse_travelThroughTestCase(curLine)) == -1){
-        exitOnError("Compilation Error - expected closing '}' token");
+        exitOnError("Compilation Error - expected closing '}' token", EINVAL);
       }
     }else{
       fparse_commentOutUnMatchedTestCase(curLine);
@@ -122,7 +124,7 @@ int fparse_commentOutUnMatchedTestCase(char * buffer) {
   buffer[1] = '*';
 
   if((curOffset = fparse_travelThroughTestCase(buffer)) == -1){
-    exitOnError("Compilation Error - expected closing '}' token");
+    exitOnError("Compilation Error - expected closing '}' token", EINVAL);
   }
 
   buffer[curOffset - 2] = '*';
@@ -175,30 +177,50 @@ void fparse_lookForComment(char c) {
       fparse_handleBlockComment();
     } else if( d == '/') {
       fparse_handleSingleComment();
-        } else {
-          tar_file_buffer[tar_byteOffset++] = c;
-          tar_file_buffer[tar_byteOffset++] = d;
-        }
+    } else {
+      tar_file_buffer[tar_byteOffset++] = c;
+      tar_file_buffer[tar_byteOffset++] = d;
+    }
   } else {
     tar_file_buffer[tar_byteOffset++] = c;
   }
 }
 
-
-// Function that handles block comments
-// Increments offset until block comment is finished.
+// Handles block comments
+// Increments file curser until block comment is closed.
 void fparse_handleBlockComment(){
-  char d,e;
-  while((d=fgetc(tar_file_ptr)) != EOF && (e=fgetc(tar_file_ptr)) != EOF) {
-    if(d == '*' && e == '/') {
-      return;
+  char d;
+  int needsLinePadding = 0;
+
+  while((d=fgetc(tar_file_ptr)) != EOF) {
+    if(d == '\n') needsLinePadding = 1;
+
+    if(d == '/' && (d=fgetc(tar_file_ptr)) == '*'){
+      exitOnError("Parsing Error - nested block comment found", EINVAL);
     }
+
+    if(d != '*') continue;
+
+    // Handles mutiple '*'s in comment ending
+    while(d == '*') d = fgetc(tar_file_ptr);
+    if(d == '/') break;
+  }
+
+  // If the block comment spans mutiple lines, a new line buffer is needed
+  // to ensure the line at the end of the block is not combined with block start.
+  if(needsLinePadding){
+    tar_file_buffer[tar_byteOffset++] = '\n';
   }
 }
 
-// Function that handles single line comments
-// Increments offset until line comment is finished.
+// Handles single line comments
+// Increments file curser until new line.
 void fparse_handleSingleComment(){
-  char d,e;
-  while(((d=fgetc(tar_file_ptr)) != EOF) && d != '\n');
+  char d;
+  while((d=fgetc(tar_file_ptr)) != EOF) {
+    if(d == '\n'){
+      tar_file_buffer[tar_byteOffset++] = d;
+      return;
+    }
+  }
 }

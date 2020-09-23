@@ -35,7 +35,7 @@ void matcher_appendMatch(char * line,int line_start, int line_end){
   if(num_matches % 10 == 0){
     match* temp = realloc(MATCHES, sizeof(struct Matches) * (num_matches + DEFAULT_MATCH_SIZE));
     if(temp == NULL){
-      exitOnError("Memory Error");
+      exitOnError("Memory Error", ENOMEM);
     }else{
       MATCHES = temp;
     }

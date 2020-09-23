@@ -7,7 +7,7 @@ args * PRO_ARGS;
 args* newArgs() {
   args* arguments = malloc(sizeof(struct Arguments));
   if(arguments == NULL){
-    exitOnError("Memory Error");
+    exitOnError("Memory Error", ENOMEM);
   }
   return arguments;
 }
@@ -132,7 +132,7 @@ int args_setProjectProps(char * projectTarget) {
     if(projectTarget == NULL){
       return 1;
     }
-		
+
 		char* extension;
 		if((extension = strchr(projectTarget, '.')) == NULL) {
 			// ProjectTarget doesnt have required delim

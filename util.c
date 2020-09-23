@@ -1,6 +1,9 @@
 #include "xct.h"
 
-void exitOnError(char * err){
+void exitOnError(char * err, int uxerr){
+  if(errno != -1){
+    errno = uxerr;
+  }
   perror(err);
   exit(1);
 }

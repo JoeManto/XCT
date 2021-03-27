@@ -1,11 +1,15 @@
 #include "xct.h"
 
 void exitOnError(char * err, int uxerr){
-  if(errno != -1){
+  if(uxerr <= 0){
     errno = uxerr;
   }
   perror(err);
   exit(1);
+}
+
+void continueOnWarning(char * warn) {
+  printf("[WARNING] %s\n",warn);
 }
 
 // Expects value to be not be NULL

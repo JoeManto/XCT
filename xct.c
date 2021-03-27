@@ -1,15 +1,18 @@
 #include "xct.h"
 #include "args.h"
 #include "file_parse.h"
+#include <regex.h>
+#include "matcher.h"
 
 int main(int argc, char** argv){
 
-	char arg1[] = "./build";
-	char arg2[] = "test";
+	init_args();
+	fparse_init();
+	fparse_start("test.swift");
 
-	char * args[] = {arg1,arg2};
 
-	printf("%s\n",args[1]);
+	fparse_dealloc();
+	dealloc_args();
 
   return 0;
 }

@@ -59,29 +59,42 @@ int matcher_lineDoesContainTestHeader(char* line) {
   return testCasePadding;
 }
 
-char * trimTestCase(char * testCase, int testCasePadding){
-  //printf("TestCase:%s\n", testCase);
-  testCase += testCasePadding + (strlen("func test"));
-  //printf("TestCase After:%s\n",testCase);
+char * trimTestCase(char * testCase, int testCasePadding) {
+  printf("testCaseBefore:%s\n", testCase);
+  int offset = testCasePadding + strlen("test");
+  testCase += offset;
+
+  offset = 0;
+  for (;testCase[offset] != '('; offset++) {
+    if (testCase[offset] == EOF) {
+      break;
+    }
+  }
+  testCase[offset] = '\0';
+  printf("testCaseAfter:%s\n", testCase);
   return testCase;
 }
 
 int matcher_regex(char* testCase) {
+  printf("SDFSFDSDF");
   return 1;
 }
 
 int matcher_substring(char* testCase) {
+  strstr(testCase, PRO_ARGS->matchingString);
   return 1;
 }
 
 int matcher_exact(char* testCase) {
-  return 1;
+  if (!PRO_ARGS->matchingString) {
+    return 0;
+  }
+  return strcmp(testCase, PRO_ARGS->matchingString) == 0;
 }
 
 int matcher_testCaseDoesMatch(char * testCase, int testCasePadding) {
   int isMatch = 0;
 
-  printf("%s\n",testCase);
   testCase = trimTestCase(testCase, testCasePadding);
   //printf("Matcher = %d\n", PRO_ARGS->matchingType);
   switch(PRO_ARGS->matchingType){
@@ -95,9 +108,10 @@ int matcher_testCaseDoesMatch(char * testCase, int testCasePadding) {
       isMatch = matcher_exact(testCase);
       break;
   }
-
-  printf("%i\n", isMatch);
-
+  printf("testcase:%s\n", testCase);
+  printf("matching type:%i\n", PRO_ARGS->matchingType);
+  printf("matching:%s\n", PRO_ARGS->matchingString);
+  printf("%s\n", isMatch ? "Match" : "No Match");
   return isMatch;
 }
 

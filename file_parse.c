@@ -82,7 +82,12 @@ void fparse_parseBufferLineByLine(char* buffer){
     }
 
     // The current line does contain a test case check if its a valid test case
-    int isMatch = matcher_testCaseDoesMatch(curLine, testCasePadding);
+    // Send a copy of the test case line so the matcher can modify it.
+    char * lineCopy = malloc(sizeof(char) * strlen(curLine)); 
+    strcpy(lineCopy, curLine);
+    int isMatch = matcher_testCaseDoesMatch(lineCopy, testCasePadding);
+    free(lineCopy);
+    lineCopy = NULL;
 
     // Reset the null term early so all lines of the testcase can be parsed
     if (nextLine) *nextLine = '\n';

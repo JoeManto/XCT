@@ -16,6 +16,8 @@ void fparse_init(){
 
 void fparse_dealloc(){
   matcher_dealloc();
+  free(tar_file_buffer);
+  tar_file_buffer = NULL;
 }
 
 int fparse_start(char * fileName) {
@@ -36,7 +38,7 @@ int fparse_start(char * fileName) {
   // Reset Offset Back
   // Alloc space for whole file in buffer
   fseek (tar_file_ptr, 0, SEEK_SET);
-  tar_file_buffer = malloc(file_length);
+  tar_file_buffer = malloc(sizeof(char) * file_length);
 
   // Removes Comments but also loads file into buffer
   fparse_removeComments();

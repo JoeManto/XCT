@@ -1,19 +1,19 @@
 #include "xct.h"
-#include "args.h"
-#include "file_parse.h"
+#include "args/args.h"
+#include "fparse/fparse_testsuite.h"
 #include <regex.h>
-#include "matcher.h"
+#include "fparse/matcher.h"
 
 extern args* PRO_ARGS;
 
 int main(int argc, char** argv){
 
 	init_args();
-	
+
 	args_setMatchingProps("Example", 's');
 
 	fparse_init();
-	fparse_start("test.swift");
+	fparse_start("tests/supporting_files/test.swift");
 
 	fparse_dealloc();
 	dealloc_args();

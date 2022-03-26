@@ -1,5 +1,5 @@
 #include "args.h"
-#include "xct.h"
+#include "../xct.h"
 
 extern int opterr;
 args * PRO_ARGS;

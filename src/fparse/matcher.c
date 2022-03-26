@@ -1,6 +1,6 @@
 #include "matcher.h"
-#include "xct.h"
-#include "args.h"
+#include "../xct.h"
+#include "../args/args.h"
 #include <regex.h>
 
 #define DEFAULT_MATCH_SIZE 10

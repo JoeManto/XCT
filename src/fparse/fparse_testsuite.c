@@ -1,6 +1,6 @@
-#include "file_parse.h"
-#include "xct.h"
-#include "args.h"
+#include "fparse_testsuite.h"
+#include "../xct.h"
+#include "../args/args.h"
 #include "matcher.h"
 #include <regex.h>
 
@@ -78,14 +78,14 @@ void fparse_parseBufferLineByLine(char* buffer){
       // No match found reset the newline to where it was
       if (nextLine) *nextLine = '\n';
       // Set curLine to the position of the first '\n' + 1
-   
+
       curLine = nextLine ? (nextLine + offset) : NULL;
       continue;
     }
 
     // The current line does contain a test case check if its a valid test case
     // Send a copy of the test case line so the matcher can modify it.
-    char * lineCopy = malloc(sizeof(char) * strlen(curLine)); 
+    char * lineCopy = malloc(sizeof(char) * strlen(curLine));
     strcpy(lineCopy, curLine);
     int isMatch = matcher_testCaseDoesMatch(lineCopy, testCasePadding);
     free(lineCopy);
@@ -98,7 +98,7 @@ void fparse_parseBufferLineByLine(char* buffer){
       if ((offset = fparse_travelThroughTestCase(curLine)) == -1) {
         exitOnError("Compilation Error - expected closing '}' token", EINVAL);
       }
-      
+
       while (curLine[offset] && curLine[offset] != '\n') {
         offset++;
       }

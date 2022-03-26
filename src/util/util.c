@@ -1,4 +1,4 @@
-#include "xct.h"
+#include "../xct.h"
 
 void exitOnError(char * err, int uxerr){
   if(uxerr <= 0){

@@ -1,9 +1,6 @@
 # XCT ⚒
 > ( A preprocessing CLI wrapper on Apple's xcodebuild's test runner)
-XCT's goal is to make running tests via a CLI more accessible and practical. Running tests using a CLI should be powerful, flexible, and quick. XCT will make you want to run your tests from the CL.
-
-XcodeBuild does a good job of handling alot of tasks, whether thats compling, achiving, testing etc. But often the commands are just too long to be viable to use in a practical development environment. Which is mostly by design as the scope is focused on helping automation of xcode workspaces and projects.
-
+XCT's goal is to make running tests via a CLI more accessible and practical. Running tests using a CLI should be powerful, flexible, and quick. 
 
 <!--ts-->
    * [A Synopsis](#a-synopsis)

@@ -1,22 +1,39 @@
 #include "xct.h"
 #include "args/args.h"
 #include "fparse/fparse_testsuite.h"
-#include <regex.h>
-#include "fparse/matcher.h"
+#include "matching/matcher.h"
+#include "exec/exec_runner.h"
 
 extern args* PRO_ARGS;
 
-int main(int argc, char** argv){
-
-	init_args();
-
-	args_setMatchingProps("Example", 's');
-
-	fparse_init();
-	fparse_start("tests/supporting_files/test.swift");
-
-	fparse_dealloc();
-	dealloc_args();
-
-  return 0;
+void removeXcodeArgs(int* argc, char** argv) {
+    int lastIndex = *argc - 1;
+    
+    argv[lastIndex] = NULL;
+    argv[lastIndex - 1] = NULL;
+    *argc -= 2;
 }
+
+void showProgramArgs(int argc, char** argv) {
+    for (int i = 0; i < argc; i++) {
+        if (argv[i]) {
+            printf("arg[%d]:'%s'\n", i, argv[i]);
+        }
+    }
+}
+
+int main(int argc, char** argv) {
+    //removeXcodeArgs(&argc, argv);
+    showProgramArgs(argc, argv);
+    
+    init_args();
+    parseArgs(argc, argv);
+    
+    exec_run();
+    
+    fparse_dealloc();
+    dealloc_args();
+    
+    return 0;
+}
+

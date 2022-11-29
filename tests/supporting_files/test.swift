@@ -33,4 +33,17 @@ class IlluminantIOSTests: XCTestCase {
             j// Put the code you want to measure the time of here.
         }
     }
+    
+    func testThis() {
+        
+    }
+    func testBoo_Swsdjkfsjdf() {
+        let x = 0
+        let y = 1
+        XCTAssert({ return true })
+    }
+    func testWhat() {
+        
+    }let x = 5;
 }
+

@@ -1,32 +1,3 @@
-// line comment
-//line comment
-//
-//                    line comment
-should show this //line comment
-should show this //
-should show this //        line comment
-
-should show this //        line comment //
-should show this //        line comment //line comment
-should show this // //line comment
-should show this ////line comment
-should show this // /line comment /
-
-/// line comment
-///line comment
-///
-///                    line comment
-should show this ///line comment
-should show this ///
-should show this ///        line comment
-
-should show this ///        line comment ///
-should show this ///        line comment ///line comment
-should show this /// ///line comment
-should show this ////line comment
-should show this /// //line comment /
-
-/**/
 /***/
 /*/
 
@@ -104,3 +75,9 @@ func test {/**/}
 
 func test {/*print("\n")*/}
 //print("\n")
+ 
+ hello
+/*
+ let y = x * 5
+ */
+ world

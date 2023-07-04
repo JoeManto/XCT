@@ -1,5 +1,5 @@
 # XCT ⚒
-> ( A preprocessing CLI wrapper on Apple's xcodebuild's test runner)
+> (A CLI wrapper on Apple's XcodeBuild's test runner)
 XCT's goal is to make running tests via a CLI more accessible and practical. Running tests via CLI should be powerful, flexible, and quick. 
 
 XCT is still a work in progress

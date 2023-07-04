@@ -4,7 +4,6 @@ XCT's goal is to make running tests via a CLI more accessible and practical. Run
 
 XCT is still a work in progress
 
-XCT is still a work in progress
 
 <!--ts-->
    * [A Synopsis](#a-synopsis)
@@ -58,9 +57,9 @@ XCT Features
 
     - Direct flags for substring and exact matching.
 
-    - Utilization of xcodebuilds parallelism
+    - Utilization of XcodeBuild's parallelism
 
-    - Xcodebuild flag pass though
+    - Xcodebuild flag pass through
 
 Some Quick Examples
 ======
@@ -85,26 +84,26 @@ Description
 How does XCT work
 ----
 
-From a top level view XCT will gather global and inline environment context saves. Take in your target testing file and make a copy of it and preprocess it based on provided matching input. The preprocessing includes removing comments, and commenting out unmatched test cases. If no matcher is specified (runs whole test suite) or the exact flag is used then no preprocessing is done.
+From a top-level view, XCT will gather global and inline environment context saves. Take in your target testing file and make a copy of it and preprocess it based on provided matching input. The preprocessing includes removing comments and commenting out unmatched test cases. If no matcher is specified (runs the whole test suite) or the exact flag is used then no preprocessing is done.
 
 Saveable Environment Context
 ----
 
-> Environment Context is the preconditions for your tests this includes all the of following with the keyword **@saveable** in the synopsis.
+> Environment Context entries are the preconditions for your tests this includes all the following args with the **@saveable** keyword in the synopsis.
 
-You can perform an inline save with the **'$'** token infront of any value with the **@saveable** keyword in the synopsis. These values will be saved for aslong as you want and can be cleared with **--clear-inline** or overwritten with another value by using the same **'$'** keyword. Inline saves are workspace/project specific and act as quick and recommended way of saving re-appliable enviorment context.
+You can perform an inline save with the **'$'** token in front of any value with the **@saveable** keyword in the synopsis. These values will be saved for as long as you want and can be cleared with **--clear-inline** or overwritten with another value by using the same **'$'** keyword. Inline saves are workspace/project specific and act as a quick and recommended way of saving re-appliable environment context.
 
-> Alternatively, user specific edits to `~/.xctrc` will count as a spot for saveable environment context. It should be noted though that inline environment saves have precedence over .xctrc. It's recommended to have the defualt fall back Environment context in .xctrc and short term environment context changes by inline-saves.
+> Alternatively, user-specific edits to `~/.xctrc` will count as a spot for saveable environment context. It should be noted though that inline environment saves have precedence over .xctrc. It's recommended to have the default fallback Environment context in .xctrc and short-term environment context changes by inline saves.
 **Inline-saves don't replace changes in .xctrc and .xctrc changes don't override inline-saves**
 
 Use Folder References
 ---
 
-XCT takes advanced of the automatic target assignments by using Folder Refs. This method also acts a safety feature as the actual source will only be read from and not written too. The nature of the pre-processing could result in some unexpected writes, If done otherwise.
+XCT takes advanced of the automatic target assignments by using Folder Refs. This method also acts as a safety feature as the actual source will only be read from and not written to. The nature of the pre-processing could result in some unexpected writes If done otherwise.
 
 ##### Tests are wrapped in groups?
-Thats perfectly fine all that is needed is an empty folderReference in the group.
-XCT will use this folder as a place to directly place copy tests. The folder only acts a 'target marker'.
+That's perfectly fine all that is needed is an empty folder reference in the group.
+XCT will use this folder as a place to directly place copy tests. The folder only acts as a 'target marker'.
 
 ```
 	SomeGroup
@@ -112,7 +111,7 @@ XCT will use this folder as a place to directly place copy tests. The folder onl
     \_ SomeGroupTests.swift
 ```
 
-To create a folder ref just create a directory in your filesystem and drag the folder into your group in xcode. Ensure the option folder reference is selected and the target assignments match the tests in that group.  
+To create a folder ref just create a directory in your filesystem and drag the folder into your group in Xcode. Ensure the folder reference option is selected and the target assignments match the tests in that group.  
 
 Test Matching Flags
 ---
@@ -120,7 +119,7 @@ Test Matching Flags
 Note: Don't include the first "test" string that is in every XC test.
 
 ```swift
-- e  Requires extact match
+- e  Requires exact match
 - s  All matching substrings
 - d  Default regex matching
 ```
@@ -168,7 +167,7 @@ set scheme someXCscheme
 set platform iOS Simulator
 set device iPhone 8
 set os 13.3
-# List any optional or xcode passthough flags
+# List any optional or xcode passthrough flags
 --ugly
 
 set project Instagram

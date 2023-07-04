@@ -13,21 +13,21 @@ void setBuildOption(char *opt) {
     }
 }
 
-void setDevice() {
-    if (PRO_ARGS->device && strcmp(PRO_ARGS->device, "none")) {
-        
-    }
-}
+void setDevice() { /* no op */ }
 
 int buildCommand(char* commandBuffer) {
     if (validateCommand() == 0) {
+        continueOnWarning("Command failed to validate");
         return 0;
     }
     
     char build[128];
     setBuildOption(build);
     
-    sprintf(commandBuffer, "xcodebuild test -scheme %s -sdk iphonesimulator -destination 'platform=iOS Simulator,name=%s,OS=%s' -only-testing %s", PRO_ARGS->scheme, PRO_ARGS->device, PRO_ARGS->os, PRO_ARGS->testTargetFile
+    sprintf(
+        commandBuffer,
+        "xcodebuild test -scheme %s -sdk iphonesimulator -destination 'platform=iOS Simulator,name=%s,OS=%s' -only-testing %s",
+        PRO_ARGS->scheme, PRO_ARGS->device, PRO_ARGS->os, PRO_ARGS->testTargetFile
     );
     
     return 1;

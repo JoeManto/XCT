@@ -27,11 +27,11 @@ typedef struct Arguments {
     int noBuild;
 } args;
 
-void init_args();
-void dealloc_args();
+void init_args(void);
+void dealloc_args(void);
 void args_assignStringProp(char** dst, char* src);
-void args_describe();
-args* newArgs();
+void args_describe(void);
+args* newArgs(void);
 int parseArgs(int argc, char** argv);
 
 

@@ -6,7 +6,7 @@
 extern int opterr;
 args * PRO_ARGS;
 
-args* newArgs() {
+args* newArgs(void) {
     args* arguments = malloc(sizeof(args));
     if(arguments == NULL){
         exitOnError("Memory Error", ENOMEM);
@@ -22,12 +22,11 @@ args* newArgs() {
     return arguments;
 }
 
-void init_args() {
+void init_args(void) {
     PRO_ARGS = newArgs();
-    //assignDefaultArgs();
 }
 
-void dealloc_args() {
+void dealloc_args(void) {
     if (PRO_ARGS) {
         free(PRO_ARGS);
     }
@@ -97,11 +96,11 @@ int parseArgs(int argc, char** argv) {
     return 0;
 }
 
-void args_getDefaultDevice() {
+void args_getDefaultDevice(void) {
     
 }
 
-void args_describe() {
+void args_describe(void) {
     if (PRO_ARGS == NULL) {
         printf("%s\n","Can't print args: PRO_ARGS is NULL");
         return;

@@ -23,13 +23,13 @@ void showProgramArgs(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-    //removeXcodeArgs(&argc, argv);
+    removeXcodeArgs(&argc, argv);
     showProgramArgs(argc, argv);
     
     init_args();
     parseArgs(argc, argv);
     
-    exec_run();
+    //exec_run();
     
     fparse_dealloc();
     dealloc_args();

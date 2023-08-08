@@ -4,7 +4,7 @@
 
 extern args* PRO_ARGS;
 
-void assignDefaultArgs() {
+void assignDefaultArgs(void) {
     args_setMatchingProps("none", 's');
     args_setTestTargetFileProp("none");
     args_setSchemeProp("none");
@@ -32,6 +32,7 @@ int args_setMatchingProps(char * matchingString, char type) {
     };
     
     args_assignStringProp(&PRO_ARGS->matchingString, matchingString);
+    PRO_ARGS->matchingType = matcher;
     return 1;
 }
 

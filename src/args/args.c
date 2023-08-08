@@ -12,11 +12,11 @@ args* newArgs() {
         exitOnError("Memory Error", ENOMEM);
     }
     
-    arguments->testTargetFile = NULL;//malloc((sizeof(char) * 1) + 1)
-    arguments->projectTarget = NULL;//malloc((sizeof(char) * 1) + 1)
-    arguments->matchingString = NULL;// malloc((sizeof(char) * 1) + 1)
-    arguments->scheme = NULL;//malloc((sizeof(char) * 1) + 1)
-    arguments->os = NULL;//malloc((sizeof(char) * 1) + 1)
+    arguments->testTargetFile = NULL;
+    arguments->projectTarget = NULL;
+    arguments->matchingString = NULL;
+    arguments->scheme = NULL;
+    arguments->os = NULL;
     arguments->device = NULL;
     
     return arguments;

@@ -1,7 +1,7 @@
 #include "xct.h"
 #include "args/args.h"
-#include "fparse/fparse_testsuite.h"
-#include "matching/matcher.h"
+#include "testSuiteParsing/fparse_testsuite.h"
+#include "testCaseMatching/matcher.h"
 #include "exec/exec_runner.h"
 
 extern args* PRO_ARGS;

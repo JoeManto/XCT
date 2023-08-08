@@ -1,6 +1,6 @@
 #include "fparse_testsuite.h"
 #include "../args/args.h"
-#include "../matching/matcher.h"
+#include "../testCaseMatching/matcher.h"
 #include <regex.h>
 
 extern args* PRO_ARGS;

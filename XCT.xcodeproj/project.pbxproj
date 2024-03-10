@@ -17,6 +17,9 @@
 		70186CC52A81C99D008F6E3F /* arg_set.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CA22A81C340008F6E3F /* arg_set.c */; };
 		70186CC62A81C99F008F6E3F /* args.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CA12A81C340008F6E3F /* args.c */; };
 		70186CC72A81C9A2008F6E3F /* xct.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186C9A2A81C340008F6E3F /* xct.c */; };
+		70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CCB2A81DBE1008F6E3F /* env_context.c */; };
+		70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4262B9CF22F0001EF5B /* env_context_parser.c */; };
+		70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4292B9D5D7C0001EF5B /* string+util.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +65,12 @@
 		70186CB02A81C340008F6E3F /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		70186CB12A81C340008F6E3F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		70186CB62A81C945008F6E3F /* XCT-Product */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XCT-Product"; sourceTree = BUILT_PRODUCTS_DIR; };
+		70186CCA2A81DBE1008F6E3F /* env_context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context.h; sourceTree = "<group>"; };
+		70186CCB2A81DBE1008F6E3F /* env_context.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context.c; sourceTree = "<group>"; };
+		70A8D4252B9CF22F0001EF5B /* env_context_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context_parser.h; sourceTree = "<group>"; };
+		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
+		70A8D4282B9D5D7C0001EF5B /* string+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string+util.h"; sourceTree = "<group>"; };
+		70A8D4292B9D5D7C0001EF5B /* string+util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "string+util.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,78 +90,81 @@
 				70186CB12A81C340008F6E3F /* LICENSE */,
 				70186CB02A81C340008F6E3F /* makefile */,
 				70186C8B2A81C340008F6E3F /* README.md */,
-				70186C8C2A81C340008F6E3F /* src */,
+				70186C8C2A81C340008F6E3F /* Source */,
 				70186CA62A81C340008F6E3F /* tests */,
 				70186CB82A81C945008F6E3F /* XCT-Product */,
 				70186CB72A81C945008F6E3F /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		70186C8C2A81C340008F6E3F /* src */ = {
+		70186C8C2A81C340008F6E3F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				70186C8D2A81C340008F6E3F /* util */,
-				70186C942A81C340008F6E3F /* testCaseMatching */,
-				70186C972A81C340008F6E3F /* testSuiteParsing */,
-				70186C9B2A81C340008F6E3F /* exec */,
-				70186CA02A81C340008F6E3F /* args */,
-				70186CA52A81C340008F6E3F /* xct.h */,
+				70186CC82A81D91E008F6E3F /* Environment */,
+				70186C8D2A81C340008F6E3F /* Util */,
+				70186C942A81C340008F6E3F /* TestCaseMatching */,
+				70186C972A81C340008F6E3F /* TestSuiteParsing */,
+				70186C9B2A81C340008F6E3F /* Exec */,
+				70186CA02A81C340008F6E3F /* Arguments */,
 				70186C9A2A81C340008F6E3F /* xct.c */,
+				70186CA52A81C340008F6E3F /* xct.h */,
 			);
-			path = src;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		70186C8D2A81C340008F6E3F /* util */ = {
+		70186C8D2A81C340008F6E3F /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				70186C8E2A81C340008F6E3F /* util.c */,
-				70186C8F2A81C340008F6E3F /* file_util.h */,
-				70186C902A81C340008F6E3F /* device_parsing.c */,
 				70186C912A81C340008F6E3F /* util.h */,
 				70186C922A81C340008F6E3F /* file_util.c */,
+				70186C8F2A81C340008F6E3F /* file_util.h */,
+				70186C902A81C340008F6E3F /* device_parsing.c */,
 				70186C932A81C340008F6E3F /* device_parsing.h */,
+				70A8D4292B9D5D7C0001EF5B /* string+util.c */,
+				70A8D4282B9D5D7C0001EF5B /* string+util.h */,
 			);
-			path = util;
+			path = Util;
 			sourceTree = "<group>";
 		};
-		70186C942A81C340008F6E3F /* testCaseMatching */ = {
+		70186C942A81C340008F6E3F /* TestCaseMatching */ = {
 			isa = PBXGroup;
 			children = (
-				70186C952A81C340008F6E3F /* matcher.h */,
 				70186C962A81C340008F6E3F /* matcher.c */,
+				70186C952A81C340008F6E3F /* matcher.h */,
 			);
-			path = testCaseMatching;
+			path = TestCaseMatching;
 			sourceTree = "<group>";
 		};
-		70186C972A81C340008F6E3F /* testSuiteParsing */ = {
+		70186C972A81C340008F6E3F /* TestSuiteParsing */ = {
 			isa = PBXGroup;
 			children = (
 				70186C982A81C340008F6E3F /* fparse_testsuite.c */,
 				70186C992A81C340008F6E3F /* fparse_testsuite.h */,
 			);
-			path = testSuiteParsing;
+			path = TestSuiteParsing;
 			sourceTree = "<group>";
 		};
-		70186C9B2A81C340008F6E3F /* exec */ = {
+		70186C9B2A81C340008F6E3F /* Exec */ = {
 			isa = PBXGroup;
 			children = (
 				70186C9C2A81C340008F6E3F /* exec_command.c */,
-				70186C9D2A81C340008F6E3F /* exec_runner.h */,
 				70186C9E2A81C340008F6E3F /* exec_command.h */,
 				70186C9F2A81C340008F6E3F /* exec_runner.c */,
+				70186C9D2A81C340008F6E3F /* exec_runner.h */,
 			);
-			path = exec;
+			path = Exec;
 			sourceTree = "<group>";
 		};
-		70186CA02A81C340008F6E3F /* args */ = {
+		70186CA02A81C340008F6E3F /* Arguments */ = {
 			isa = PBXGroup;
 			children = (
 				70186CA12A81C340008F6E3F /* args.c */,
-				70186CA22A81C340008F6E3F /* arg_set.c */,
 				70186CA32A81C340008F6E3F /* args.h */,
+				70186CA22A81C340008F6E3F /* arg_set.c */,
 				70186CA42A81C340008F6E3F /* arg_set.h */,
 			);
-			path = args;
+			path = Arguments;
 			sourceTree = "<group>";
 		};
 		70186CA62A81C340008F6E3F /* tests */ = {
@@ -207,6 +219,17 @@
 			path = "XCT-Product";
 			sourceTree = "<group>";
 		};
+		70186CC82A81D91E008F6E3F /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				70186CCB2A81DBE1008F6E3F /* env_context.c */,
+				70186CCA2A81DBE1008F6E3F /* env_context.h */,
+				70A8D4262B9CF22F0001EF5B /* env_context_parser.c */,
+				70A8D4252B9CF22F0001EF5B /* env_context_parser.h */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -257,6 +280,7 @@
 					};
 					70186CB52A81C945008F6E3F = {
 						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1520;
 					};
 				};
 			};
@@ -294,6 +318,9 @@
 				70186CC32A81C995008F6E3F /* exec_command.c in Sources */,
 				70186CBE2A81C981008F6E3F /* util.c in Sources */,
 				70186CC52A81C99D008F6E3F /* arg_set.c in Sources */,
+				70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */,
+				70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */,
+				70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,24 +468,29 @@
 		70186CBC2A81C945008F6E3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VRURLA883;
 				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		70186CBD2A81C945008F6E3F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VRURLA883;
 				ENABLE_HARDENED_RUNTIME = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -3,4 +3,4 @@
 
 int exec_run();
 
-#endif /* exec_runner_DOT_H */
+#endif /* EXEC_RUNNER_DOT_H */

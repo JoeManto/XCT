@@ -10,6 +10,7 @@ comp:
 	gcc src/testCaseMatching/matcher.c -o ./build/matcher.o -c
 	gcc src/exec/exec_runner.c -o ./build/exec_runner.o -c
 	gcc src/exec/exec_command.c -o ./build/exec_command.o -c
+	gcc src/environment/env_context.c -o ./build/env_context.o -c
 clean:
 	rm ./build/*.o ./build/*.sh &
 

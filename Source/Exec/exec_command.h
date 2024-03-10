@@ -4,4 +4,4 @@
 int buildCommand(char* commandBuffer);
 int validateCommand();
 
-#endif /* exec_command_DOT_H */
+#endif /* EXEC_COMMAND_DOT_H */

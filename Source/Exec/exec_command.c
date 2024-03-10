@@ -1,6 +1,5 @@
 #include "exec_command.h"
 #include "../xct.h"
-#include "../args/args.h"
 
 extern args* PRO_ARGS;
 
@@ -17,7 +16,7 @@ void setDevice() { /* no op */ }
 
 int buildCommand(char* commandBuffer) {
     if (validateCommand() == 0) {
-        continueOnWarning("Command failed to validate");
+        ulog(warning, "Command failed to validate");
         return 0;
     }
     

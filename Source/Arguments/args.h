@@ -1,6 +1,8 @@
 #ifndef ARGS_DOT_H
 #define ARGS_DOT_H
 
+#define ENV_CONTEXT_ARG_COUNT 6
+
 enum Matcher {
   exact,
   substring,
@@ -25,14 +27,25 @@ typedef struct Arguments {
     int ugly;
     int clear;
     int noBuild;
-} args;
+} Arguments;
+
+enum ContextArgumentType {
+    projectTarget = 1,
+    fileTarget = 2,
+    scheme = 3,
+    os = 4,
+    device = 5,
+    unknown = 6
+} typedef ContextArgumentType;
 
 void init_args(void);
 void dealloc_args(void);
 void args_assignStringProp(char** dst, char* src);
 void args_describe(void);
-args* newArgs(void);
+Arguments* newArgs(void);
 int parseArgs(int argc, char** argv);
-
-
+void args_setArgumentsForString(Arguments* args, char* argumentString);
+char* args_getContextArgumentTypeKey(ContextArgumentType type);
+ContextArgumentType args_getContextArgumentForKey(char* key);
+char* args_argumentComponent(ContextArgumentType argument, char* value);
 #endif /* ARGS_DOT_H */

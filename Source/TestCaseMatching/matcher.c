@@ -1,6 +1,5 @@
 #include "matcher.h"
 #include "../xct.h"
-#include "../args/args.h"
 #include <regex.h>
 
 #define DEFAULT_MATCH_SIZE 10
@@ -23,9 +22,9 @@ void matcher_dealloc() {
     MATCHES = NULL;
 }
 
-// Attempts to find pattern in given string.
-// Provide integer ptr to capture index in given string which the pattern starts
-// @Returns 1 on match success otherwise 0
+/// Attempts to find pattern in given string.
+/// Provide integer ptr to capture index in given string which the pattern starts
+/// @Returns 1 on match success otherwise 0
 int matcher_match(char * string, char * pattern, int * foundAtIndex) {
     regex_t    preg;
     int        rc;
@@ -33,12 +32,13 @@ int matcher_match(char * string, char * pattern, int * foundAtIndex) {
     regmatch_t pmatch[2];
     
     if (0 != (rc = regcomp(&preg, pattern, REG_EXTENDED))) {
-        continueOnWarning("Failed to compile regex expression. Parsing could be effected");
+        ulog(warning, "Failed to compile regex expression. Parsing could be effected");
         return 1;
     }
     
     if (0 != (rc = regexec(&preg, string, nmatch, pmatch, 0))) {
         printf("Failed to match line:'%s' with pattern:'%s' error:%d\n", string, pattern, rc);
+        regfree(&preg);
         return 0;
     }
     else {
@@ -46,17 +46,16 @@ int matcher_match(char * string, char * pattern, int * foundAtIndex) {
         if (foundAtIndex) {
             *foundAtIndex = pmatch[0].rm_eo - pmatch[0].rm_so;
         }
+
+        regfree(&preg);
         return 1;
     }
-    regfree(&preg);
     
     return rc;
 }
 
-// Determines if a given line contains a XC TestCase
-// @returns
-//  Failure: < 0
-//  Success: The starting index in the curline in which the header was found
+/// Determines if a given line contains a XCTestCase
+/// @returns The starting index in the curline in which the header was found, otherwise < 0
 int matcher_containsTestHeader(char* line) {
     char* pattern = TESTCASE_PATTERN;
     int testCasePadding = -1;

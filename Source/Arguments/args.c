@@ -4,10 +4,10 @@
 #include <getopt.h>
 
 extern int opterr;
-args * PRO_ARGS;
+Arguments* PRO_ARGS;
 
-args* newArgs(void) {
-    args* arguments = malloc(sizeof(args));
+Arguments* newArgs(void) {
+    Arguments* arguments = malloc(sizeof(Arguments));
     if(arguments == NULL){
         exitOnError("Memory Error", ENOMEM);
     }
@@ -40,15 +40,16 @@ int parseArgs(int argc, char** argv) {
 
     // Set opterr to avoid external errors
     opterr = 0;
-        
+    optind = 0;
+
     struct option long_options[] = {
         {"no-build", no_argument, &PRO_ARGS->noBuild, 1}
     };
-    
+
     int option_index = 0;
     char option;
     
-    while ((option = getopt_long(argc, argv, ":t:e:s:d:P:S:O:D:", long_options, &option_index)) != EOF) {
+    while ((option = getopt_long(argc, argv, "t:e:s:d:P:S:O:D:", long_options, &option_index)) != EOF) {
         switch(option) {
             case 'e':
             case 's':
@@ -98,6 +99,95 @@ int parseArgs(int argc, char** argv) {
 
 void args_getDefaultDevice(void) {
     
+}
+
+void args_setArgumentsForString(Arguments* args, char* argumentString) {
+    Arguments* originalArgs = PRO_ARGS;
+
+    char* path = "dummy_path";
+    unsigned long pathSize = strlen(path);
+
+    char** argv = malloc(sizeof(char) * strlen(argumentString) + pathSize);
+    argv[0] = malloc(sizeof(char) * pathSize);
+    strcpy(argv[0], path);
+
+    char* token = strtok(argumentString, ",");
+    int index = 1;
+    while (token) {
+        argv[index] = malloc(sizeof(char) * strlen(token));
+        strcpy(argv[index], token);
+        
+        index++;
+        token = strtok(NULL, ",");
+    }
+
+    PRO_ARGS = newArgs();
+    parseArgs(index, argv);
+    args_describe();
+    
+    PRO_ARGS = originalArgs;
+}
+
+char* args_argumentComponent(ContextArgumentType argument, char* value) {
+    unsigned long valueSize;
+    if ((valueSize = strlen(value)) <= 0) {
+        return NULL;
+    }
+
+    unsigned long prefixSize = 3; // "-p "
+    char* component = malloc(sizeof(char) * (valueSize + prefixSize));
+
+    switch (argument) {
+        case projectTarget:
+            strcpy(component, "-P,");
+            break;
+        case fileTarget:
+            strcpy(component, "-t,");
+            break;
+        case scheme:
+            strcpy(component, "-S,");
+            break;
+        case os:
+            strcpy(component, "-O,");
+            break;
+        case device:
+            strcpy(component, "-D,");
+            break;
+        case unknown:
+            return NULL;
+    }
+
+    strcat(component, value);
+    return component;
+}
+
+ContextArgumentType args_getContextArgumentForKey(char* key) {
+    ContextArgumentType types[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };
+
+    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+        if (strcmp(key, args_getContextArgumentTypeKey(types[i])) == 0) {
+            return types[i];
+        }
+    }
+
+    return unknown;
+}
+
+char* args_getContextArgumentTypeKey(ContextArgumentType type) {
+    switch (type) {
+        case projectTarget:
+            return "project";
+        case fileTarget:
+            return "file";
+        case scheme:
+            return "scheme";
+        case os:
+            return "os";
+        case device:
+            return "device";
+        case unknown:
+            return "unknown";
+    }
 }
 
 void args_describe(void) {

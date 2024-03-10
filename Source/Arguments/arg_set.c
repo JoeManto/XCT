@@ -2,7 +2,7 @@
 #include "args.h"
 #include "../xct.h"
 
-extern args* PRO_ARGS;
+extern Arguments* PRO_ARGS;
 
 void assignDefaultArgs(void) {
     args_setMatchingProps("none", 's');

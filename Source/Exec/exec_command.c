@@ -1,7 +1,7 @@
 #include "exec_command.h"
 #include "../xct.h"
 
-extern args* PRO_ARGS;
+extern Arguments* PRO_ARGS;
 
 void setBuildOption(char *opt) {
     if (PRO_ARGS->noBuild) {
@@ -12,7 +12,7 @@ void setBuildOption(char *opt) {
     }
 }
 
-void setDevice() { /* no op */ }
+// void setDevice() { /* no op */ }
 
 int buildCommand(char* commandBuffer) {
     if (validateCommand() == 0) {
@@ -32,6 +32,6 @@ int buildCommand(char* commandBuffer) {
     return 1;
 }
 
-int validateCommand() {
+int validateCommand(void) {
     return 1;
 }

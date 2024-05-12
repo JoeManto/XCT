@@ -5,17 +5,17 @@
 #define DEFAULT_MATCH_SIZE 10
 #define TESTCASE_PATTERN "\w*func test"
 
-extern args* PRO_ARGS;
+extern Arguments* PRO_ARGS;
 
 int num_matches;
 match* MATCHES;
 
-void matcher_init() {
+void matcher_init(void) {
     num_matches = 0;
     MATCHES = malloc(sizeof(struct Match) * DEFAULT_MATCH_SIZE);
 }
 
-void matcher_dealloc() {
+void matcher_dealloc(void) {
     if (MATCHES) {
         free(MATCHES);
     }

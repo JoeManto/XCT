@@ -4,7 +4,9 @@
 #include <getopt.h>
 
 extern int opterr;
+
 Arguments* PRO_ARGS;
+ContextArgumentType contextArgTypes[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };
 
 Arguments* newArgs(void) {
     Arguments* arguments = malloc(sizeof(Arguments));
@@ -97,34 +99,36 @@ int parseArgs(int argc, char** argv) {
     return 0;
 }
 
-void args_getDefaultDevice(void) {
-    
-}
-
 void args_setArgumentsForString(Arguments* args, char* argumentString) {
     Arguments* originalArgs = PRO_ARGS;
 
+    // arg1, arg2, arg3 + dummypath
+    uint numArgs = (strcount(',', argumentString) + 1) + 1;
+    char** argv = malloc(sizeof(char *) * numArgs);
+
     char* path = "dummy_path";
     unsigned long pathSize = strlen(path);
-
-    char** argv = malloc(sizeof(char) * strlen(argumentString) + pathSize);
-    argv[0] = malloc(sizeof(char) * pathSize);
+    argv[0] = malloc(((sizeof(char) * pathSize)) + 1);
     strcpy(argv[0], path);
 
     char* token = strtok(argumentString, ",");
     int index = 1;
     while (token) {
-        argv[index] = malloc(sizeof(char) * strlen(token));
+        argv[index] = malloc((sizeof(char) * strlen(token)) + 1);
         strcpy(argv[index], token);
-        
+
         index++;
         token = strtok(NULL, ",");
     }
 
-    PRO_ARGS = newArgs();
+    PRO_ARGS = args;
     parseArgs(index, argv);
-    args_describe();
     
+    for (; index >= 0; --index) {
+        free(argv[index]);
+    }
+    free(argv);
+
     PRO_ARGS = originalArgs;
 }
 
@@ -135,7 +139,7 @@ char* args_argumentComponent(ContextArgumentType argument, char* value) {
     }
 
     unsigned long prefixSize = 3; // "-p "
-    char* component = malloc(sizeof(char) * (valueSize + prefixSize));
+    char* component = malloc((sizeof(char) * (valueSize + prefixSize)) + 1);
 
     switch (argument) {
         case projectTarget:
@@ -162,15 +166,96 @@ char* args_argumentComponent(ContextArgumentType argument, char* value) {
 }
 
 ContextArgumentType args_getContextArgumentForKey(char* key) {
-    ContextArgumentType types[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };
-
     for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
-        if (strcmp(key, args_getContextArgumentTypeKey(types[i])) == 0) {
-            return types[i];
+        if (strcmp(key, args_getContextArgumentTypeKey(contextArgTypes[i])) == 0) {
+            return contextArgTypes[i];
         }
     }
 
     return unknown;
+}
+
+Arguments* args_merge(Arguments* long_term, Arguments* short_term) {
+    Arguments* originalArgs = PRO_ARGS;
+    Arguments* merged = newArgs();
+    PRO_ARGS = merged;
+
+    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+        switch (contextArgTypes[i]) {
+            case projectTarget:
+                if (short_term->projectTarget) {
+                    args_setProjectProps(short_term->projectTarget);
+                    break;
+                }
+
+                if (long_term->projectTarget) {
+                    args_setProjectProps(long_term->projectTarget);
+                    break;
+                }
+
+                break;
+            case fileTarget:
+                if (short_term->testTargetFile) {
+                    args_setTestTargetFileProp(short_term->testTargetFile);
+                    break;
+                }
+
+                if (long_term->testTargetFile) {
+                    args_setTestTargetFileProp(long_term->testTargetFile);
+                    break;
+                }
+
+                break;
+            case scheme:
+                if (short_term->scheme) {
+                    args_setSchemeProp(short_term->scheme);
+                    break;
+                }
+
+                if (long_term->scheme) {
+                    args_setSchemeProp(long_term->scheme);
+                    break;
+                }
+
+                break;
+            case os:
+                if (short_term->os) {
+                    args_setOSProp(short_term->os);
+                    break;
+                }
+
+                if (long_term->os) {
+                    args_setOSProp(long_term->os);
+                    break;
+                }
+
+                break;
+            case device:
+                if (short_term->device) {
+                    args_setDeviceProp(short_term->device);
+                    break;
+                }
+
+                if (long_term->device) {
+                    args_setDeviceProp(long_term->device);
+                    break;
+                }
+
+                break;
+            case unknown:
+                break;
+        }
+    }
+
+    ulog(info, "--merge--");
+    args_describe();
+
+    PRO_ARGS = originalArgs;
+
+    ulog(info, "--original--");
+    args_describe();
+
+    return merged;
 }
 
 char* args_getContextArgumentTypeKey(ContextArgumentType type) {

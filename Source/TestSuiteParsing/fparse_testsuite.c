@@ -2,18 +2,18 @@
 #include "../TestCaseMatching/matcher.h"
 #include <regex.h>
 
-extern args* PRO_ARGS;
+extern Arguments* PRO_ARGS;
 FILE* tar_file_ptr;
 
 char* tar_file_buffer = NULL;
 int tar_byteOffset = 0;
 int tar_buffer_size = -1;
 
-void fparse_init() {
+void fparse_init(void) {
     matcher_init();
 }
 
-void fparse_dealloc() {
+void fparse_dealloc(void) {
     matcher_dealloc();
     
     if (tar_file_ptr) {
@@ -35,7 +35,7 @@ int fparse_process(char* fileName) {
     tar_file_buffer = malloc(sizeof(char) * fileLength);
     
     // Read file into buffer
-    fparse_readFileIgnoringComments(tar_file_ptr);
+    fparse_readFileIgnoringComments();
     
     tar_buffer_size = tar_byteOffset;
     tar_byteOffset = 0;
@@ -177,7 +177,7 @@ int fparse_commentOutUnMatchedTestCase(char* buffer) {
 // MARK: Buffer Loading
 
 /// Loads file into buffer while skipping over comments
-void fparse_readFileIgnoringComments() {
+void fparse_readFileIgnoringComments(void) {
     char c;
     while ((c=fgetc(tar_file_ptr)) != EOF) {
         fparse_addChar(c);
@@ -190,10 +190,10 @@ void fparse_addChar(char c) {
     char d;
     if (c == '/') {
         if ((d=fgetc(tar_file_ptr)) == '*') {
-            fparse_removeBlockComment(tar_file_ptr);
+            fparse_removeBlockComment();
         }
         else if ( d == '/') {
-            fparse_removeSingleComment(tar_file_ptr);
+            fparse_removeSingleComment();
         }
         else {
             tar_file_buffer[tar_byteOffset++] = c;
@@ -207,7 +207,7 @@ void fparse_addChar(char c) {
 
 /// Removes block comments
 /// Increments file curser until block comment is closed
-void fparse_removeBlockComment() {
+void fparse_removeBlockComment(void) {
     char d;
     int needsLinePadding = 0;
     int isFirstCharacter = 1;
@@ -243,7 +243,7 @@ void fparse_removeBlockComment() {
 
 /// Removes single line comments
 /// Increments file curser until new line
-void fparse_removeSingleComment() {
+void fparse_removeSingleComment(void) {
     char d;
     while ((d=fgetc(tar_file_ptr)) != EOF) {
         if(d == '\n') {

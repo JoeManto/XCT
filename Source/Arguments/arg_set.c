@@ -4,6 +4,9 @@
 
 extern Arguments* PRO_ARGS;
 
+void args_assignStringProp(char** dst, char* src);
+void assignDefaultArgs(void);
+
 void assignDefaultArgs(void) {
     args_setMatchingProps("none", 's');
     args_setTestTargetFileProp("none");
@@ -93,7 +96,7 @@ int args_setProjectProps(char* projectTarget) {
     }
     
     args_assignStringProp(&PRO_ARGS->projectTarget, projectTarget);
-    
+
     /*
     if (projectTarget == NULL) {
         return 1;
@@ -124,18 +127,15 @@ int args_setProjectProps(char* projectTarget) {
 /// Assigns any string arg
 /// Note: Passed value no longer needs to be maintained by caller and should be freed if dynamically allocated
 void args_assignStringProp(char** dst, char* src) {
+    if (dst != NULL) {
+        freeStr(*dst);
+    }
+
     char* srccpy = malloc(sizeof(char) * strlen(src) + 1);
     strcpy(srccpy, src);
-    
+
     *dst = malloc(sizeof(char) * strlen(srccpy) + 1);
     strcpy(*dst, srccpy);
-    printf("dst: %s\n", *dst);
-    //if (src[0] == ' ') {
-    //    strcpy(dst, src+1);
-   // }
-   // else{
-        
-   // }
 
     free(srccpy);
 }

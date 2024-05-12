@@ -59,6 +59,12 @@ int env_parseContextFile(char* path, Arguments* args) {
         ulog(info, "No settings found");
     }
 
+    for (; commandsIndex > 0;) {
+        if (commandComponents[--commandsIndex] != NULL) {
+            free(commandComponents[commandsIndex]);
+        }
+    }
+
     free(line_buffer);
     fclose(file);
     return 0;
@@ -93,7 +99,7 @@ char* env_parseContextLine(char* line, Arguments* args) {
     }
 
     if (alreadyInserted) {
-        ulog(info, "Setting already set");
+        ulog(warning, "Setting already set");
         return NULL;
     }
 

@@ -40,12 +40,15 @@ enum ContextArgumentType {
 
 void init_args(void);
 void dealloc_args(void);
-void args_assignStringProp(char** dst, char* src);
-void args_describe(void);
 Arguments* newArgs(void);
+
 int parseArgs(int argc, char** argv);
+void args_describe(void);
+
 void args_setArgumentsForString(Arguments* args, char* argumentString);
 char* args_getContextArgumentTypeKey(ContextArgumentType type);
 ContextArgumentType args_getContextArgumentForKey(char* key);
 char* args_argumentComponent(ContextArgumentType argument, char* value);
+Arguments* args_merge(Arguments* long_term, Arguments* short_term);
+
 #endif /* ARGS_DOT_H */

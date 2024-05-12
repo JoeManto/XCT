@@ -3,7 +3,7 @@
 #include "../xct.h"
 #include <dirent.h>
 
-extern args* PRO_ARGS;
+extern Arguments* PRO_ARGS;
 
 int runCommandWithOutput(char* command) {
     FILE *fp;
@@ -25,7 +25,7 @@ int runCommandWithOutput(char* command) {
     return 1;
 }
 
-int exec_run() {
+int exec_run(void) {
     char command[2028];
     buildCommand(command);
     printf("Running Command:\n%s\n\n", command);

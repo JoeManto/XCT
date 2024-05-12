@@ -9,7 +9,5 @@ int args_setSchemeProp(char* scheme);
 int args_setOSProp(char* os);
 int args_setDeviceProp(char* device);
 void args_setNoBuild(int noBuild);
-void assignDefaultArgs();
-
 
 #endif /* ARG_SET_DOT_H */

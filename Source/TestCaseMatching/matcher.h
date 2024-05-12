@@ -8,8 +8,8 @@ typedef struct Match {
     int valid;
 } match;
 
-void matcher_init();
-void matcher_dealloc();
+void matcher_init(void);
+void matcher_dealloc(void);
 int matcher_match(char * string, char * pattern, int * foundAtIndex);
 int matcher_containsTestHeader(char* line);
 int matcher_doesTestCaseMatch(char * testCase, int testCasePadding);

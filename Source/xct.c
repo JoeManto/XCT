@@ -3,6 +3,7 @@
 #include "TestCaseMatching/matcher.h"
 #include "Exec/exec_runner.h"
 #include "Environment/env_context.h"
+#include "Arguments/arg_set.h"
 
 extern Arguments* PRO_ARGS;
 
@@ -19,9 +20,22 @@ int main(int argc, char** argv) {
     init_args();
     parseArgs(argc, argv);
 
-    env_retrieveStoredArgs();
+    Arguments* storedArgs = env_retrieveStoredArgs();
+    PRO_ARGS = storedArgs;
+
+    ulog(info, "Final args");
+    args_describe();
     //exec_run();
-    
+
+    //ulog(info, "BEFORE");
+    //args_describe();
+
+    //args_assignStringProp(&PRO_ARGS->device, "My Device");
+
+    //ulog(info, "AFTER");
+    //args_describe();
+
+
     fparse_dealloc();
     dealloc_args();
     

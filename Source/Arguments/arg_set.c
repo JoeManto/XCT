@@ -127,14 +127,21 @@ int args_setProjectProps(char* projectTarget) {
 /// Assigns any string arg
 /// Note: Passed value no longer needs to be maintained by caller and should be freed if dynamically allocated
 void args_assignStringProp(char** dst, char* src) {
-    if (dst != NULL) {
-        freeStr(*dst);
+    size_t srcSize = strlen(src);
+
+    if (srcSize < 1) {
+        return;
     }
 
-    char* srccpy = malloc(sizeof(char) * strlen(src) + 1);
+    size_t neededSize = (sizeof(char) * srcSize) + 1;
+    char* srccpy = malloc(neededSize);
     strcpy(srccpy, src);
 
-    *dst = malloc(sizeof(char) * strlen(srccpy) + 1);
+    if (*dst == NULL) {
+        *dst = malloc(neededSize);
+    } else {
+        *dst = realloc(*dst, neededSize);
+    }
     strcpy(*dst, srccpy);
 
     free(srccpy);

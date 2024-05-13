@@ -25,7 +25,7 @@ Arguments* env_retrieveStoredArgs(void) {
     env_setShortTermContext();
     env_setLongTermContext();
 
-    merged_args = args_merge(long_term_args, short_term_args);
+    merged_args = args_merge_new(long_term_args, short_term_args);
 
     return merged_args;
 }

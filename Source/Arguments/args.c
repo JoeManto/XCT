@@ -175,11 +175,18 @@ ContextArgumentType args_getContextArgumentForKey(char* key) {
     return unknown;
 }
 
-Arguments* args_merge(Arguments* long_term, Arguments* short_term) {
+Arguments* args_merge_new(Arguments* long_term, Arguments* short_term) {
     Arguments* originalArgs = PRO_ARGS;
     Arguments* merged = newArgs();
     PRO_ARGS = merged;
 
+    args_merge(long_term, short_term);
+
+    PRO_ARGS = originalArgs;
+    return merged;
+}
+
+void args_merge(Arguments* long_term, Arguments* short_term) {
     for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
         switch (contextArgTypes[i]) {
             case projectTarget:
@@ -246,16 +253,6 @@ Arguments* args_merge(Arguments* long_term, Arguments* short_term) {
                 break;
         }
     }
-
-    ulog(info, "--merge--");
-    args_describe();
-
-    PRO_ARGS = originalArgs;
-
-    ulog(info, "--original--");
-    args_describe();
-
-    return merged;
 }
 
 char* args_getContextArgumentTypeKey(ContextArgumentType type) {

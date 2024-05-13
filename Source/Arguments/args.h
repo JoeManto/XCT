@@ -49,6 +49,7 @@ void args_setArgumentsForString(Arguments* args, char* argumentString);
 char* args_getContextArgumentTypeKey(ContextArgumentType type);
 ContextArgumentType args_getContextArgumentForKey(char* key);
 char* args_argumentComponent(ContextArgumentType argument, char* value);
-Arguments* args_merge(Arguments* long_term, Arguments* short_term);
+Arguments* args_merge_new(Arguments* long_term, Arguments* short_term);
+void args_merge(Arguments* long_term, Arguments* short_term);
 
 #endif /* ARGS_DOT_H */

@@ -21,7 +21,9 @@ int main(int argc, char** argv) {
     parseArgs(argc, argv);
 
     Arguments* storedArgs = env_retrieveStoredArgs();
-    PRO_ARGS = storedArgs;
+
+    // Merge stored args with cli args. Prefering cli.
+    args_merge(storedArgs, PRO_ARGS);
 
     ulog(info, "Final args");
     args_describe();

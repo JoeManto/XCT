@@ -53,9 +53,9 @@ void strlower(char* str) {
     }
 }
 
-uint strcount(char character, char* str) {
+uint64_t strcount(char character, char* str) {
     size_t length = strlen(str);
-    uint count = 0;
+    uint64_t count = 0;
 
     for (int i = 0; i < length; i++) {
         if (str[i] == character) {

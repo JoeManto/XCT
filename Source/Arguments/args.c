@@ -103,7 +103,7 @@ void args_setArgumentsForString(Arguments* args, char* argumentString) {
     Arguments* originalArgs = PRO_ARGS;
 
     // arg1, arg2, arg3 + dummypath
-    uint numArgs = (strcount(',', argumentString) + 1) + 1;
+    uint64_t numArgs = (strcount(',', argumentString) + 1) + 1;
     char** argv = malloc(sizeof(char *) * numArgs);
 
     char* path = "dummy_path";

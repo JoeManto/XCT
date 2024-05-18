@@ -13,6 +13,7 @@ comp:
 	gcc Source/Exec/exec_runner.c -o ./build/exec_runner.o -c
 	gcc Source/Environment/env_context.c -o ./build/env_context.o -c
 	gcc Source/Environment/env_context_parser.c -o ./build/env_context_parser.o -c
+	gcc Source/Environment/env_context_writer.c -o ./build/env_context_writer.o -c
 clean:
 	rm ./build/*.o ./build/*.sh &
 

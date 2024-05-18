@@ -3,6 +3,7 @@
 #include "TestCaseMatching/matcher.h"
 #include "Exec/exec_runner.h"
 #include "Environment/env_context.h"
+#include "Environment/env_content_writer.h"
 #include "Arguments/arg_set.h"
 
 extern Arguments* PRO_ARGS;
@@ -25,9 +26,10 @@ int main(int argc, char** argv) {
     // Merge stored args with cli args. Prefering cli.
     args_merge(storedArgs, PRO_ARGS);
 
-    ulog(info, "Final args");
     args_describe();
-    exec_run();
+    //exec_run();
+
+    env_context_writer("/tmp/.xctrc-test-short", PRO_ARGS);
 
     fparse_dealloc();
     dealloc_args();

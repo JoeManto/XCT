@@ -20,6 +20,7 @@
 		70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CCB2A81DBE1008F6E3F /* env_context.c */; };
 		705F09AD2BF1F44D0029AFE0 /* XCTTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 705F09AC2BF1F44D0029AFE0 /* XCTTests.m */; };
 		705F09B32BF30DB80029AFE0 /* XCT-Product in CopyFiles */ = {isa = PBXBuildFile; fileRef = 70186CB62A81C945008F6E3F /* XCT-Product */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		705F09B62BF953180029AFE0 /* env_content_writer.c in Sources */ = {isa = PBXBuildFile; fileRef = 705F09B52BF953180029AFE0 /* env_content_writer.c */; };
 		70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4262B9CF22F0001EF5B /* env_context_parser.c */; };
 		70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4292B9D5D7C0001EF5B /* string+util.c */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,8 @@
 		70186CCB2A81DBE1008F6E3F /* env_context.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context.c; sourceTree = "<group>"; };
 		705F09AA2BF1F44D0029AFE0 /* XCTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		705F09AC2BF1F44D0029AFE0 /* XCTTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCTTests.m; sourceTree = "<group>"; };
+		705F09B42BF953180029AFE0 /* env_content_writer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_content_writer.h; sourceTree = "<group>"; };
+		705F09B52BF953180029AFE0 /* env_content_writer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_content_writer.c; sourceTree = "<group>"; };
 		70A8D4252B9CF22F0001EF5B /* env_context_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context_parser.h; sourceTree = "<group>"; };
 		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
 		70A8D4282B9D5D7C0001EF5B /* string+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string+util.h"; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 				70186CCA2A81DBE1008F6E3F /* env_context.h */,
 				70A8D4262B9CF22F0001EF5B /* env_context_parser.c */,
 				70A8D4252B9CF22F0001EF5B /* env_context_parser.h */,
+				705F09B52BF953180029AFE0 /* env_content_writer.c */,
+				705F09B42BF953180029AFE0 /* env_content_writer.h */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				70186CC32A81C995008F6E3F /* exec_command.c in Sources */,
 				70186CBE2A81C981008F6E3F /* util.c in Sources */,
 				70186CC52A81C99D008F6E3F /* arg_set.c in Sources */,
+				705F09B62BF953180029AFE0 /* env_content_writer.c in Sources */,
 				70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */,
 				70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */,
 				70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */,

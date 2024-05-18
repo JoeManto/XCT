@@ -18,6 +18,8 @@
 		70186CC62A81C99F008F6E3F /* args.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CA12A81C340008F6E3F /* args.c */; };
 		70186CC72A81C9A2008F6E3F /* xct.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186C9A2A81C340008F6E3F /* xct.c */; };
 		70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 70186CCB2A81DBE1008F6E3F /* env_context.c */; };
+		705F09AD2BF1F44D0029AFE0 /* XCTTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 705F09AC2BF1F44D0029AFE0 /* XCTTests.m */; };
+		705F09B32BF30DB80029AFE0 /* XCT-Product in CopyFiles */ = {isa = PBXBuildFile; fileRef = 70186CB62A81C945008F6E3F /* XCT-Product */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4262B9CF22F0001EF5B /* env_context_parser.c */; };
 		70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4292B9D5D7C0001EF5B /* string+util.c */; };
 /* End PBXBuildFile section */
@@ -25,12 +27,13 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		70186CB42A81C945008F6E3F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			buildActionMask = 12;
+			dstPath = "$(PROJECT_DIR)";
 			dstSubfolderSpec = 0;
 			files = (
+				705F09B32BF30DB80029AFE0 /* XCT-Product in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -67,6 +70,8 @@
 		70186CB62A81C945008F6E3F /* XCT-Product */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XCT-Product"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70186CCA2A81DBE1008F6E3F /* env_context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context.h; sourceTree = "<group>"; };
 		70186CCB2A81DBE1008F6E3F /* env_context.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context.c; sourceTree = "<group>"; };
+		705F09AA2BF1F44D0029AFE0 /* XCTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		705F09AC2BF1F44D0029AFE0 /* XCTTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCTTests.m; sourceTree = "<group>"; };
 		70A8D4252B9CF22F0001EF5B /* env_context_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context_parser.h; sourceTree = "<group>"; };
 		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
 		70A8D4282B9D5D7C0001EF5B /* string+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string+util.h"; sourceTree = "<group>"; };
@@ -75,6 +80,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		70186CB32A81C945008F6E3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		705F09A72BF1F44D0029AFE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -93,6 +105,7 @@
 				70186C8C2A81C340008F6E3F /* Source */,
 				70186CA62A81C340008F6E3F /* tests */,
 				70186CB82A81C945008F6E3F /* XCT-Product */,
+				705F09AB2BF1F44D0029AFE0 /* XCTTests */,
 				70186CB72A81C945008F6E3F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				70186CB62A81C945008F6E3F /* XCT-Product */,
+				705F09AA2BF1F44D0029AFE0 /* XCTTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,6 +242,14 @@
 				70A8D4252B9CF22F0001EF5B /* env_context_parser.h */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		705F09AB2BF1F44D0029AFE0 /* XCTTests */ = {
+			isa = PBXGroup;
+			children = (
+				705F09AC2BF1F44D0029AFE0 /* XCTTests.m */,
+			);
+			path = XCTTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +288,23 @@
 			productReference = 70186CB62A81C945008F6E3F /* XCT-Product */;
 			productType = "com.apple.product-type.tool";
 		};
+		705F09A92BF1F44D0029AFE0 /* XCTTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 705F09B02BF1F44D0029AFE0 /* Build configuration list for PBXNativeTarget "XCTTests" */;
+			buildPhases = (
+				705F09A62BF1F44D0029AFE0 /* Sources */,
+				705F09A72BF1F44D0029AFE0 /* Frameworks */,
+				705F09A82BF1F44D0029AFE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XCTTests;
+			productName = XCTTests;
+			productReference = 705F09AA2BF1F44D0029AFE0 /* XCTTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -281,6 +320,9 @@
 					70186CB52A81C945008F6E3F = {
 						CreatedOnToolsVersion = 15.0;
 						LastSwiftMigration = 1520;
+					};
+					705F09A92BF1F44D0029AFE0 = {
+						CreatedOnToolsVersion = 15.4;
 					};
 				};
 			};
@@ -299,9 +341,20 @@
 			targets = (
 				70186C852A81C30D008F6E3F /* XCT */,
 				70186CB52A81C945008F6E3F /* XCT-Product */,
+				705F09A92BF1F44D0029AFE0 /* XCTTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		705F09A82BF1F44D0029AFE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		70186CB22A81C945008F6E3F /* Sources */ = {
@@ -321,6 +374,14 @@
 				70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */,
 				70186CCC2A81DBE1008F6E3F /* env_context.c in Sources */,
 				70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		705F09A62BF1F44D0029AFE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				705F09AD2BF1F44D0029AFE0 /* XCTTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +555,38 @@
 			};
 			name = Release;
 		};
+		705F09AE2BF1F44D0029AFE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9VRURLA883;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joemanto.XCTTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Debug;
+		};
+		705F09AF2BF1F44D0029AFE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9VRURLA883;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joemanto.XCTTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -520,6 +613,15 @@
 			buildConfigurations = (
 				70186CBC2A81C945008F6E3F /* Debug */,
 				70186CBD2A81C945008F6E3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		705F09B02BF1F44D0029AFE0 /* Build configuration list for PBXNativeTarget "XCTTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				705F09AE2BF1F44D0029AFE0 /* Debug */,
+				705F09AF2BF1F44D0029AFE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

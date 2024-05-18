@@ -27,16 +27,7 @@ int main(int argc, char** argv) {
 
     ulog(info, "Final args");
     args_describe();
-    //exec_run();
-
-    //ulog(info, "BEFORE");
-    //args_describe();
-
-    //args_assignStringProp(&PRO_ARGS->device, "My Device");
-
-    //ulog(info, "AFTER");
-    //args_describe();
-
+    exec_run();
 
     fparse_dealloc();
     dealloc_args();

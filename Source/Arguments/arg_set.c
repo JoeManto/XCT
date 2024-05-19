@@ -88,6 +88,29 @@ void args_setNoBuild(int noBuild) {
     PRO_ARGS->noBuild = noBuild;
 }
 
+/// Sets the given arugment's value to saved in the short term context save.
+void args_setSavedArgument(ContextArgumentType type) {
+    switch (type) {
+        case projectTarget:
+            PRO_ARGS->savedArguments[0] = projectTarget;
+            break;
+        case fileTarget:
+            PRO_ARGS->savedArguments[1] = fileTarget;
+            break;
+        case scheme:
+            PRO_ARGS->savedArguments[2] = scheme;
+            break;
+        case os:
+            PRO_ARGS->savedArguments[3] = os;
+            break;
+        case device:
+            PRO_ARGS->savedArguments[4] = device;
+            break;
+        case unknown:
+            break;
+    }
+}
+
 /// Sets the `project` argument
 /// Returns Bool indicating success
 int args_setProjectProps(char* projectTarget) {

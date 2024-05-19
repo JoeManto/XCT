@@ -14,6 +14,15 @@ enum Project {
   project,
 };
 
+enum ContextArgumentType {
+    projectTarget = 1,
+    fileTarget = 2,
+    scheme = 3,
+    os = 4,
+    device = 5,
+    unknown = 6
+} typedef ContextArgumentType;
+
 typedef struct Arguments {
     enum Matcher matchingType;
     enum Project projectType;
@@ -23,20 +32,12 @@ typedef struct Arguments {
     char* scheme;
     char* os;
     char* device;
+    ContextArgumentType savedArguments[ENV_CONTEXT_ARG_COUNT];
     int dry;
     int ugly;
     int clear;
     int noBuild;
 } Arguments;
-
-enum ContextArgumentType {
-    projectTarget = 1,
-    fileTarget = 2,
-    scheme = 3,
-    os = 4,
-    device = 5,
-    unknown = 6
-} typedef ContextArgumentType;
 
 void init_args(void);
 void dealloc_args(void);
@@ -48,6 +49,7 @@ void args_describe(void);
 void args_setArgumentsForString(Arguments* args, char* argumentString);
 char* args_getContextArgumentTypeKey(ContextArgumentType type);
 ContextArgumentType args_getContextArgumentForKey(char* key);
+ContextArgumentType args_getContentArgumentForLabel(char label);
 char* args_argumentComponent(ContextArgumentType argument, char* value);
 Arguments* args_merge_new(Arguments* long_term, Arguments* short_term);
 void args_merge(Arguments* long_term, Arguments* short_term);

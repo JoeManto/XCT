@@ -7,16 +7,23 @@
 
 #include "env_content_writer.h"
 #include "env_context.h"
+#include "../Arguments/args.h"
 
+extern Arguments* PRO_ARGS;
+
+void env_context_writer(char* path, Arguments* args);
 int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
+
+void env_save_short_term_context(void) {
+    env_context_writer("/tmp/.xctrc-test-short", PRO_ARGS);
+}
 
 void env_context_writer(char* path, Arguments* args) {
     FILE* file;
-    if ((file = fopen(path, "w")) == NULL) {
+    if ((file = fopen(path, "w+")) == NULL) {
         exitOnError("Failed to open argument context file for writing", 0);
     }
 
-    size_t buffer_size = 250;
     size_t total_bytes_written = 0;
     char* buffer = malloc(sizeof(char) * 250);
     char* buffer_ptr = buffer;
@@ -25,6 +32,10 @@ void env_context_writer(char* path, Arguments* args) {
 
     for(int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
         ContextArgumentType arg_type = arg_types[i];
+        if (args->savedArguments[i] == unknown) {
+            continue;
+        }
+
         int bytes_written = 0;
         switch (arg_type) {
             case projectTarget:

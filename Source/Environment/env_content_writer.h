@@ -10,6 +10,6 @@
 
 #include "../xct.h"
 
-void env_context_writer(char* path, Arguments* args);
+void env_save_short_term_context(void);
 
 #endif /* env_content_writer_h */

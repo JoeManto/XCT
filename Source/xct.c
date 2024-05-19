@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     args_describe();
     //exec_run();
 
-    env_context_writer("/tmp/.xctrc-test-short", PRO_ARGS);
+    env_save_short_term_context();
 
     fparse_dealloc();
     dealloc_args();

@@ -20,7 +20,13 @@ Arguments* newArgs(void) {
     arguments->scheme = NULL;
     arguments->os = NULL;
     arguments->device = NULL;
-    
+    arguments->savedArguments[0] = unknown;
+    arguments->savedArguments[1] = unknown;
+    arguments->savedArguments[2] = unknown;
+    arguments->savedArguments[3] = unknown;
+    arguments->savedArguments[4] = unknown;
+    arguments->savedArguments[5] = unknown;
+
     return arguments;
 }
 
@@ -52,6 +58,13 @@ int parseArgs(int argc, char** argv) {
     char option;
     
     while ((option = getopt_long(argc, argv, "t:e:s:d:P:S:O:D:", long_options, &option_index)) != EOF) {
+
+        bool hasSavePrefix = false;
+        if (optarg != NULL && optarg[0] == '$') {
+            hasSavePrefix = true;
+            optarg += 1; // Strip the '$'.
+        }
+
         switch(option) {
             case 'e':
             case 's':
@@ -81,12 +94,17 @@ int parseArgs(int argc, char** argv) {
                 break;
             case ':':
                 printf("option needs a value\n");
-                break;
+                continue;
             case '?':
                 printf("unknown option: %c\n", optopt);
-                break;
+                continue;
             default:
-                break;
+                continue;
+        }
+
+        if (hasSavePrefix) {
+            ContextArgumentType type = args_getContentArgumentForLabel(option);
+            args_setSavedArgument(type);
         }
     }
     
@@ -272,6 +290,28 @@ char* args_getContextArgumentTypeKey(ContextArgumentType type) {
     }
 }
 
+ContextArgumentType args_getContentArgumentForLabel(char label) {
+    switch(label) {
+        case 'e':
+        case 's':
+        case 'd':
+            return unknown;
+        case 't':
+            return fileTarget;
+        case 'P':
+            return projectTarget;
+        case 'S':
+            return scheme;
+        case 'O':
+            return os;
+        case 'D':
+            return device;
+            break;
+        default:
+            return unknown;
+    }
+}
+
 void args_describe(void) {
     if (PRO_ARGS == NULL) {
         printf("%s\n","Can't print args: PRO_ARGS is NULL");
@@ -286,5 +326,11 @@ void args_describe(void) {
     printf("scheme: %s\n",PRO_ARGS->scheme != NULL ? PRO_ARGS->scheme : "(null)");
     printf("os: %s\n",PRO_ARGS->os != NULL ? PRO_ARGS->os : "(null)");
     printf("device: %s\n",PRO_ARGS->device != NULL ? PRO_ARGS->device : "(null)");
+    printf("savedArgs:\n");
+
+    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+        printf("[%d]:%s\n", i, args_getContextArgumentTypeKey(PRO_ARGS->savedArguments[i]));
+    }
+
     printf("%s\n", "---------------------------");
 }

@@ -27,14 +27,14 @@ int runCommandWithOutput(char* command) {
 
 int exec_run(void) {
     char command[2028];
-    buildCommand(command);
+    int result = buildCommand(command);
+    if (result != 0) {
+        ulog(error, "Failed to build command");
+        return result;
+    }
+
     printf("Running Command:\n%s\n\n", command);
-    
-    //char* output = malloc(sizeof(char));
     runCommandWithOutput(command);
-    //printf("output: %s\n", output);
-    
-    //free(output);
     return 1;
 }
 

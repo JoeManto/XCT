@@ -3,6 +3,8 @@
 
 extern Arguments* PRO_ARGS;
 
+int validateCommand(void);
+
 void setBuildOption(char *opt) {
     if (PRO_ARGS->noBuild) {
         strcpy(opt, "test-without-building");
@@ -27,15 +29,9 @@ int buildCommand(char* commandBuffer) {
         PRO_ARGS->scheme, PRO_ARGS->testTargetFile
     );
 
-    /*sprintf(
-        commandBuffer,
-        "xcodebuild test -scheme %s -sdk iphonesimulator -destination 'platform=iOS Simulator,name=%s,OS=%s' -only-testing %s",
-        PRO_ARGS->scheme, PRO_ARGS->device, PRO_ARGS->os, PRO_ARGS->testTargetFile
-    );*/
-
-    return 1;
+    return 0;
 }
 
 int validateCommand(void) {
-    return 1;
+    return 0;
 }

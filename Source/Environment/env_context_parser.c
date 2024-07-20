@@ -113,7 +113,7 @@ char* buildArgumentString(char** components, unsigned int numComponents) {
         size += strlen(components[i]);
     }
 
-    char* argumentString = malloc(sizeof(char) * size);
+    char* argumentString = malloc((sizeof(char) * size) + 1);
     for (int i = 0; i < numComponents; i++) {
         if (i > 0) {
             strcat(argumentString, ",");

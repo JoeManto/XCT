@@ -15,9 +15,10 @@ void setBuildOption(char *opt) {
 }
 
 int buildCommand(char* commandBuffer) {
-    if (validateCommand() == 0) {
+    int result;
+    if ((result = validateCommand()) != 0) {
         ulog(warning, "Command failed to validate");
-        return 0;
+        return result;
     }
     
     char build[128];

@@ -15,7 +15,7 @@ void env_context_writer(char* path, Arguments* args);
 int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
 
 void env_save_short_term_context(void) {
-    env_context_writer("/tmp/short-term-out", PRO_ARGS);
+    env_context_writer("/Users/joemanto/Documents/cs/C:C++/XCT/XCT/Resources/short-term-out", PRO_ARGS);
 }
 
 void env_context_writer(char* path, Arguments* args) {
@@ -85,6 +85,7 @@ int env_write_argument(ContextArgumentType argument_type, char* value, char* buf
     size_t key_length = strlen(argument_key);
     strcat(buffer, argument_key);
     strcat(buffer, "\n");
-
+    
+    ulogFormat(info, 25, "Saved arg %s", argument_key);
     return (int)(value_length + key_length) + 2;
 }

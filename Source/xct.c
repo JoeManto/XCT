@@ -23,13 +23,13 @@ int main(int argc, char** argv) {
 
     Arguments* storedArgs = env_retrieveStoredArgs();
 
-    // Merge stored args with cli args. Prefering cli.
-    //args_merge(storedArgs, PRO_ARGS);
+    // Merge stored args with cli args. Preferring cli.
+    args_merge(storedArgs, PRO_ARGS);
 
-    //args_describe();
-    //exec_run();
+    env_save_short_term_context();
 
-    //env_save_short_term_context();
+    args_describe();
+    exec_run();
 
     fparse_dealloc();
     dealloc_args();

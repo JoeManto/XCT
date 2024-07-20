@@ -72,6 +72,7 @@
 		7084588B2C4B58B400DFB9C7 /* .xctrc-long */ = {isa = PBXFileReference; lastKnownFileType = text; name = ".xctrc-long"; path = "../../../../../../.xctrc-long"; sourceTree = "<group>"; };
 		7084588C2C4B58BB00DFB9C7 /* .xctrc-short */ = {isa = PBXFileReference; lastKnownFileType = text; name = ".xctrc-short"; path = "../../../../../../.xctrc-short"; sourceTree = "<group>"; };
 		7084588D2C4B5A5E00DFB9C7 /* short-term-out */ = {isa = PBXFileReference; lastKnownFileType = text; path = "short-term-out"; sourceTree = "<group>"; };
+		708458902C4B7A6D00DFB9C7 /* install_xct.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install_xct.sh; sourceTree = "<group>"; };
 		70A8D4252B9CF22F0001EF5B /* env_context_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context_parser.h; sourceTree = "<group>"; };
 		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
 		70A8D4282B9D5D7C0001EF5B /* string+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string+util.h"; sourceTree = "<group>"; };
@@ -104,8 +105,8 @@
 				70186C8B2A81C340008F6E3F /* README.md */,
 				70186C8C2A81C340008F6E3F /* Source */,
 				708458872C4B56AD00DFB9C7 /* Resources */,
+				7084588F2C4B7A4400DFB9C7 /* Scripts */,
 				70186CA62A81C340008F6E3F /* tests */,
-				70186CB82A81C945008F6E3F /* XCT-Product */,
 				705F09AB2BF1F44D0029AFE0 /* XCTTests */,
 				70186CB72A81C945008F6E3F /* Products */,
 			);
@@ -223,13 +224,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		70186CB82A81C945008F6E3F /* XCT-Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "XCT-Product";
-			sourceTree = "<group>";
-		};
 		70186CC82A81D91E008F6E3F /* Environment */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +255,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		7084588F2C4B7A4400DFB9C7 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				708458902C4B7A6D00DFB9C7 /* install_xct.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -287,6 +289,7 @@
 				70186CB22A81C945008F6E3F /* Sources */,
 				70186CB32A81C945008F6E3F /* Frameworks */,
 				70186CB42A81C945008F6E3F /* CopyFiles */,
+				7084588E2C4B7A3A00DFB9C7 /* Install xct */,
 			);
 			buildRules = (
 			);
@@ -364,6 +367,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7084588E2C4B7A3A00DFB9C7 /* Install xct */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Install xct";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec ${PROJECT_DIR}/Scripts/install_xct.sh\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		70186CB22A81C945008F6E3F /* Sources */ = {
@@ -541,6 +567,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VRURLA883;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -556,6 +583,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VRURLA883;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

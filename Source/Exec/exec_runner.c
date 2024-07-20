@@ -27,8 +27,8 @@ int runCommandWithOutput(char* command) {
 
 int exec_run(void) {
     char command[2028];
-    int result = buildCommand(command);
-    if (result != 0) {
+    int result;
+    if ((result = buildCommand(command)) != 0) {
         ulog(error, "Failed to build command");
         return result;
     }
@@ -37,5 +37,3 @@ int exec_run(void) {
     runCommandWithOutput(command);
     return 1;
 }
-
-

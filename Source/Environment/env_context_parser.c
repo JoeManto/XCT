@@ -73,12 +73,20 @@ int env_parseContextFile(char* path, Arguments* args) {
 
 char* env_parseContextLine(char* line, Arguments* args) {
     char* token = strtok(line, "=");
+    if (!token) {
+        return NULL;
+    }
+
     unsigned long key_size = strlen(token);
     char key[key_size];
     strcpy_ignore(key, token, " \"\n");
     strlower(key);
 
     token = strtok(NULL, "=");
+    if (!token) {
+        return NULL;
+    }
+
     unsigned long value_size = strlen(token);
     char value[value_size];
     strcpy_ignore(value, token, "\"\n"); // Keep spaces
@@ -86,7 +94,7 @@ char* env_parseContextLine(char* line, Arguments* args) {
     printf("KEY: %s VALUE: %s\n", key, value);
 
     ContextArgumentType argument;
-    if ((argument = args_getContextArgumentForKey(key)) == unknown) {
+    if ((argument = args_getContextArgumentTypeForKey(key)) == unknown) {
         ulog(warning, "Found invalid key");
         return NULL;
     }

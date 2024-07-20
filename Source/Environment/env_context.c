@@ -58,12 +58,17 @@ void env_setShortTermContext(void) {
     }
 }
 
-void env_setContext(char *fileName, Arguments* args) {
+char* env_contextFilePath(char *fileName) {
     char* homePathVar = getenv("HOME");
     char* filePath = malloc(sizeof(char) * (strlen(fileName) + strlen(homePathVar) + 2)); // +1 '/' and +1 for null-term
     strcat(filePath, homePathVar);
     strcat(filePath, "/");
     strcat(filePath, fileName);
+    return filePath;
+}
+
+void env_setContext(char *fileName, Arguments* args) {
+    char* filePath = env_contextFilePath(fileName);
 
     int result;
     if ((result = env_parseContextFile(filePath, args)) != 0) {

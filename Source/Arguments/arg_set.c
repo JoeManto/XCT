@@ -88,7 +88,7 @@ void args_setNoBuild(int noBuild) {
     PRO_ARGS->noBuild = noBuild;
 }
 
-/// Sets the given arugment's value to saved in the short term context save.
+/// Sets the given argument's value to saved in the short term context save.
 void args_setSavedArgument(ContextArgumentType type) {
     switch (type) {
         case projectTarget:

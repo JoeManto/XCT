@@ -11,5 +11,6 @@
 #include "../xct.h"
 
 Arguments* env_retrieveStoredArgs(void);
+char* env_contextFilePath(char *fileName);
 
 #endif /* env_context_h */

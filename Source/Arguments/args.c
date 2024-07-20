@@ -20,12 +20,10 @@ Arguments* newArgs(void) {
     arguments->scheme = NULL;
     arguments->os = NULL;
     arguments->device = NULL;
-    arguments->savedArguments[0] = unknown;
-    arguments->savedArguments[1] = unknown;
-    arguments->savedArguments[2] = unknown;
-    arguments->savedArguments[3] = unknown;
-    arguments->savedArguments[4] = unknown;
-    arguments->savedArguments[5] = unknown;
+
+    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+        arguments->savedArguments[i] = unknown;
+    }
 
     return arguments;
 }
@@ -183,16 +181,8 @@ char* args_argumentComponent(ContextArgumentType argument, char* value) {
     return component;
 }
 
-ContextArgumentType args_getContextArgumentForKey(char* key) {
-    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
-        if (strcmp(key, args_getContextArgumentTypeKey(contextArgTypes[i])) == 0) {
-            return contextArgTypes[i];
-        }
-    }
-
-    return unknown;
-}
-
+/// Creates new arguments by merging `short_term` arguments into `long_term`.
+/// Where the existing values are replaced.
 Arguments* args_merge_new(Arguments* long_term, Arguments* short_term) {
     Arguments* originalArgs = PRO_ARGS;
     Arguments* merged = newArgs();
@@ -273,6 +263,7 @@ void args_merge(Arguments* long_term, Arguments* short_term) {
     }
 }
 
+/// Returns the key string for the provided context argument type.
 char* args_getContextArgumentTypeKey(ContextArgumentType type) {
     switch (type) {
         case projectTarget:
@@ -290,6 +281,7 @@ char* args_getContextArgumentTypeKey(ContextArgumentType type) {
     }
 }
 
+/// Returns the context argument type given the command line flag label.
 ContextArgumentType args_getContentArgumentForLabel(char label) {
     switch(label) {
         case 'e':
@@ -310,6 +302,36 @@ ContextArgumentType args_getContentArgumentForLabel(char label) {
         default:
             return unknown;
     }
+}
+
+
+/// Returns the argument string mapping to the passed argument type.
+char* args_getContextArgumentValueForKey(ContextArgumentType type, Arguments* args) {
+    switch (type) {
+        case projectTarget:
+            return args->projectTarget;
+        case fileTarget:
+            return args->testTargetFile;
+        case scheme:
+            return args->scheme;
+        case os:
+            return args->os;
+        case device:
+            return args->device;
+        case unknown:
+            return NULL;
+    }
+}
+
+/// Returns the argument type if the provided key string exactly matches.
+ContextArgumentType args_getContextArgumentTypeForKey(char* key) {
+    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+        if (strcmp(key, args_getContextArgumentTypeKey(contextArgTypes[i])) == 0) {
+            return contextArgTypes[i];
+        }
+    }
+
+    return unknown;
 }
 
 void args_describe(void) {

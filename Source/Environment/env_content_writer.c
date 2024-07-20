@@ -10,12 +10,17 @@
 #include "../Arguments/args.h"
 
 extern Arguments* PRO_ARGS;
+extern Arguments* short_term_args;
 
 void env_context_writer(char* path, Arguments* args);
 int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
+char* env_argument_value(ContextArgumentType argument_type, Arguments* short_term_args, Arguments* main_args);
 
 void env_save_short_term_context(void) {
-    env_context_writer("/Users/joemanto/Documents/cs/C:C++/XCT/XCT/Resources/short-term-out", PRO_ARGS);
+    char* path = env_contextFilePath(".xctrc-short");
+    env_context_writer(path, PRO_ARGS);
+
+    free(path);
 }
 
 void env_context_writer(char* path, Arguments* args) {
@@ -32,30 +37,14 @@ void env_context_writer(char* path, Arguments* args) {
 
     for(int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
         ContextArgumentType arg_type = arg_types[i];
-        if (args->savedArguments[i] == unknown) {
+
+        char* value = env_argument_value(arg_type, short_term_args, args);
+
+        if (value == NULL) {
             continue;
         }
 
-        int bytes_written = 0;
-        switch (arg_type) {
-            case projectTarget:
-                bytes_written = env_write_argument(arg_type, args->projectTarget, buffer_ptr);
-                break;
-            case fileTarget:
-                bytes_written = env_write_argument(arg_type, args->testTargetFile, buffer_ptr);
-                break;
-            case scheme:
-                bytes_written = env_write_argument(arg_type, args->scheme, buffer_ptr);
-                break;
-            case os:
-                bytes_written = env_write_argument(arg_type, args->os, buffer_ptr);
-                break;
-            case device:
-                bytes_written = env_write_argument(arg_type, args->device, buffer_ptr);
-                break;
-            case unknown:
-                break;
-        }
+        int bytes_written = env_write_argument(arg_type, value, buffer_ptr);
 
         if (bytes_written > 0 && i != ENV_CONTEXT_ARG_COUNT - 1) {
             buffer_ptr += bytes_written;
@@ -72,18 +61,32 @@ void env_context_writer(char* path, Arguments* args) {
     free(buffer);
 }
 
+char* env_argument_value(ContextArgumentType argument_type, Arguments* short_term_args, Arguments* main_args) {
+    uint8_t saved_argument_index = (uint8_t) argument_type;
+    char* saved_argument_value = args_getContextArgumentValueForKey(argument_type, main_args);
+    char* short_term_argument_value = args_getContextArgumentValueForKey(argument_type, short_term_args);
+
+    if (main_args->savedArguments[saved_argument_index] != unknown && saved_argument_value) {
+        return saved_argument_value;
+    } else if (short_term_argument_value) {
+        return short_term_argument_value;
+    }
+    
+    return NULL;
+}
+
 int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer) {
     if (value == NULL) {
         return 0;
     }
 
-    size_t value_length = strlen(value);
-    strcpy(buffer, value);
-    strcat(buffer, "=");
-
     char* argument_key = args_getContextArgumentTypeKey(argument_type);
     size_t key_length = strlen(argument_key);
-    strcat(buffer, argument_key);
+    strcpy(buffer, argument_key);
+    strcat(buffer, "=");
+
+    size_t value_length = strlen(value);
+    strcat(buffer, value);
     strcat(buffer, "\n");
     
     ulogFormat(info, 25, "Saved arg %s", argument_key);

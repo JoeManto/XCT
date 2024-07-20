@@ -71,7 +71,6 @@
 		705F09B52BF953180029AFE0 /* env_content_writer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_content_writer.c; sourceTree = "<group>"; };
 		7084588B2C4B58B400DFB9C7 /* .xctrc-long */ = {isa = PBXFileReference; lastKnownFileType = text; name = ".xctrc-long"; path = "../../../../../../.xctrc-long"; sourceTree = "<group>"; };
 		7084588C2C4B58BB00DFB9C7 /* .xctrc-short */ = {isa = PBXFileReference; lastKnownFileType = text; name = ".xctrc-short"; path = "../../../../../../.xctrc-short"; sourceTree = "<group>"; };
-		7084588D2C4B5A5E00DFB9C7 /* short-term-out */ = {isa = PBXFileReference; lastKnownFileType = text; path = "short-term-out"; sourceTree = "<group>"; };
 		708458902C4B7A6D00DFB9C7 /* install_xct.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install_xct.sh; sourceTree = "<group>"; };
 		70A8D4252B9CF22F0001EF5B /* env_context_parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env_context_parser.h; sourceTree = "<group>"; };
 		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
@@ -250,7 +249,6 @@
 			children = (
 				7084588C2C4B58BB00DFB9C7 /* .xctrc-short */,
 				7084588B2C4B58B400DFB9C7 /* .xctrc-long */,
-				7084588D2C4B5A5E00DFB9C7 /* short-term-out */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

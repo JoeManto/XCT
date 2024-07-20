@@ -4,23 +4,23 @@
 #define ENV_CONTEXT_ARG_COUNT 6
 
 enum Matcher {
-  exact,
+  exact = 0,
   substring,
   regex,
 };
 
 enum Project {
-  workspace,
+  workspace = 0,
   project,
 };
 
 enum ContextArgumentType {
-    projectTarget = 1,
-    fileTarget = 2,
-    scheme = 3,
-    os = 4,
-    device = 5,
-    unknown = 6
+    projectTarget = 0,
+    fileTarget,
+    scheme,
+    os,
+    device,
+    unknown
 } typedef ContextArgumentType;
 
 typedef struct Arguments {
@@ -48,7 +48,8 @@ void args_describe(void);
 
 void args_setArgumentsForString(Arguments* args, char* argumentString);
 char* args_getContextArgumentTypeKey(ContextArgumentType type);
-ContextArgumentType args_getContextArgumentForKey(char* key);
+char* args_getContextArgumentValueForKey(ContextArgumentType type, Arguments* args);
+ContextArgumentType args_getContextArgumentTypeForKey(char* key);
 ContextArgumentType args_getContentArgumentForLabel(char label);
 char* args_argumentComponent(ContextArgumentType argument, char* value);
 Arguments* args_merge_new(Arguments* long_term, Arguments* short_term);

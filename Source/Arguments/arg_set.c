@@ -5,17 +5,6 @@
 extern Arguments* PRO_ARGS;
 
 void args_assignStringProp(char** dst, char* src);
-void assignDefaultArgs(void);
-
-void assignDefaultArgs(void) {
-    args_setMatchingProps("none", 's');
-    args_setTestTargetFileProp("none");
-    args_setSchemeProp("none");
-    args_setOSProp("none");
-    args_setDeviceProp("none");
-    args_setProjectProps("none");
-    args_setNoBuild(0);
-}
 
 /// Sets the `matchingString` and `matchingType` arguments
 /// Returns Bool indicating success

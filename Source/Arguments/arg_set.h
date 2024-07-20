@@ -2,14 +2,15 @@
 #define ARG_SET_DOT_H
 
 #include "../Arguments/args.h"
+#include <inttypes.h>
 
-int args_setMatchingProps(char* matchingString, char type);
-int args_setProjectProps(char * projectTarget);
-int args_setTestTargetFileProp(char * target);
-int args_setSchemeProp(char* scheme);
-int args_setOSProp(char* os);
-int args_setDeviceProp(char* device);
-void args_setNoBuild(int noBuild);
+uint8_t args_setMatchingProps(char* matchingString, char type);
+uint8_t args_setProjectProps(char* projectTarget);
+uint8_t args_setTestTargetFileProp(char* target);
+uint8_t args_setSchemeProp(char* scheme);
+uint8_t args_setOSProp(char* os);
+uint8_t args_setDeviceProp(char* device);
+void args_setNoBuild(uint_8 noBuild);
 void args_setSavedArgument(ContextArgumentType type);
 
 #endif /* ARG_SET_DOT_H */

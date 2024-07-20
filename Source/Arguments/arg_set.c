@@ -8,7 +8,7 @@ void args_assignStringProp(char** dst, char* src);
 
 /// Sets the `matchingString` and `matchingType` arguments
 /// Returns Bool indicating success
-int args_setMatchingProps(char * matchingString, char type) {
+uint8_t args_setMatchingProps(char* matchingString, char type) {
     if (matchingString == NULL) {
         return 0;
     }
@@ -30,7 +30,7 @@ int args_setMatchingProps(char * matchingString, char type) {
 
 /// Sets the `testTargetFile` argument
 /// Returns Bool indicating success
-int args_setTestTargetFileProp(char* target) {
+uint8_t args_setTestTargetFileProp(char* target) {
     if (target == NULL) {
         return 0;
     }
@@ -41,7 +41,7 @@ int args_setTestTargetFileProp(char* target) {
 
 /// Sets the `scheme` argument
 /// Returns Bool indicating success
-int args_setSchemeProp(char* scheme) {
+uint8_t args_setSchemeProp(char* scheme) {
     if (scheme == NULL) {
         return 0;
     }
@@ -52,7 +52,7 @@ int args_setSchemeProp(char* scheme) {
 
 /// Sets the `os` argument
 /// Returns Bool indicating success
-int args_setOSProp(char* os) {
+uint8_t args_setOSProp(char* os) {
     if (os == NULL) {
         return 0;
     }
@@ -63,7 +63,7 @@ int args_setOSProp(char* os) {
 
 /// Sets the `os` argument
 /// Returns Bool indicating success
-int args_setDeviceProp(char* device) {
+uint8_t args_setDeviceProp(char* device) {
     if (device == NULL) {
         return 0;
     }
@@ -73,7 +73,7 @@ int args_setDeviceProp(char* device) {
 }
 
 /// Sets the `no build` argument
-void args_setNoBuild(int noBuild) {
+void args_setNoBuild(uint8_t noBuild) {
     PRO_ARGS->noBuild = noBuild;
 }
 
@@ -102,7 +102,7 @@ void args_setSavedArgument(ContextArgumentType type) {
 
 /// Sets the `project` argument
 /// Returns Bool indicating success
-int args_setProjectProps(char* projectTarget) {
+uint8_t args_setProjectProps(char* projectTarget) {
     if (projectTarget == NULL) {
         return 0;
     }

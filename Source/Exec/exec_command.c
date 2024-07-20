@@ -5,7 +5,7 @@ extern Arguments* PRO_ARGS;
 
 int validateCommand(void);
 
-void setBuildOption(char *opt) {
+void setBuildOption(char* opt) {
     if (PRO_ARGS->noBuild) {
         strcpy(opt, "test-without-building");
     }

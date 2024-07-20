@@ -10,12 +10,12 @@
 #include "env_context_parser.h"
 
 char* env_parseContextLine(char* line, Arguments* args);
-char* buildArgumentString(char** components, unsigned int numComponents) ;
+char* buildArgumentString(char** components, uint numComponents) ;
 char* commandComponents[ENV_CONTEXT_ARG_COUNT];
 
 ContextArgumentType* unusedComponents;
 
-int env_parseContextFile(char* path, Arguments* args) {
+uint env_parseContextFile(char* path, Arguments* args) {
     FILE* file;
     if ((file = fopen(path, "r")) == NULL) {
         ulogFormat(error, 100, "Failed to open argument context file %s\n", path);
@@ -25,7 +25,7 @@ int env_parseContextFile(char* path, Arguments* args) {
     ContextArgumentType components[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };
     unusedComponents = components;
 
-    int commandsIndex = 0;
+    uint commandsIndex = 0;
 
     char* line_buffer = malloc(sizeof(char) * 100);
     while (line_buffer != NULL) {
@@ -115,14 +115,14 @@ char* env_parseContextLine(char* line, Arguments* args) {
     return args_argumentComponent(argument, value);
 }
 
-char* buildArgumentString(char** components, unsigned int numComponents) {
-    unsigned long size = 0;
-    for (int i = 0; i < numComponents; i++) {
+char* buildArgumentString(char** components, uint numComponents) {
+    uint size = 0;
+    for (uint i = 0; i < numComponents; i++) {
         size += strlen(components[i]);
     }
 
     char* argumentString = malloc((sizeof(char) * size) + 1);
-    for (int i = 0; i < numComponents; i++) {
+    for (uint i = 0; i < numComponents; i++) {
         if (i > 0) {
             strcat(argumentString, ",");
         }

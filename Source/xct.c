@@ -8,7 +8,7 @@
 
 extern Arguments* PRO_ARGS;
 
-void showProgramArgs(int argc, char** argv) {
+void showProgramArgs(uint argc, char** argv) {
     for (int i = 0; i < argc; i++) {
         if (argv[i]) {
             printf("arg[%d]:'%s'\n", i, argv[i]);

@@ -21,7 +21,7 @@ Arguments* newArgs(void) {
     arguments->os = NULL;
     arguments->device = NULL;
 
-    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+    for (uint i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
         arguments->savedArguments[i] = unknown;
     }
 
@@ -39,7 +39,7 @@ void dealloc_args(void) {
     PRO_ARGS = NULL;
 }
 
-int parseArgs(int argc, char** argv) {
+uint parseArgs(uint argc, char** argv) {
     if (PRO_ARGS == NULL) {
         init_args();
     }
@@ -325,7 +325,7 @@ char* args_getContextArgumentValueForKey(ContextArgumentType type, Arguments* ar
 
 /// Returns the argument type if the provided key string exactly matches.
 ContextArgumentType args_getContextArgumentTypeForKey(char* key) {
-    for (int i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
+    for (uint i = 0; i < ENV_CONTEXT_ARG_COUNT; i++) {
         if (strcmp(key, args_getContextArgumentTypeKey(contextArgTypes[i])) == 0) {
             return contextArgTypes[i];
         }

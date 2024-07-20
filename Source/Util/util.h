@@ -3,11 +3,11 @@
 
 enum LogMessage {
     info = 0,
-    warning = 1,
-    error = 2,
+    warning,
+    error,
 } typedef LogMessage;
 
-void exitOnError(char * err, int uxerr);
+void exitOnError(char* err, uint uxerr);
 void ulog(LogMessage level, char *message);
 void ulogFormat(LogMessage level, uint8_t size, char *message, const char * format, ... );
 

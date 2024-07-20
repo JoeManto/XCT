@@ -10,7 +10,7 @@
 
 #include "../xct.h"
 
-int env_parseContextFile(char* path, Arguments* args);
-char* buildArgumentString(char** components, unsigned int numComponents);
+uint env_parseContextFile(char* path, Arguments* args);
+char* buildArgumentString(char** components, uint numComponents);
 
 #endif /* env_context_parser_h */

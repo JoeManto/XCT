@@ -18,15 +18,15 @@ void freeStr(char* ptr) {
 }
 
 void strcpy_ignore(char* dst, char* src, char* ignoreSet) {
-    unsigned long size = strlen(src);
-    unsigned long ignoreSetSize = strlen(ignoreSet);
+    uint64_t size = strlen(src);
+    uint64_t ignoreSetSize = strlen(ignoreSet);
 
-    int dstIndex = 0;
-    for (int i = 0; i < size; i++) {
+    uint64_t dstIndex = 0;
+    for (uint64_t i = 0; i < size; i++) {
         char character = src[i];
 
         bool ignore = false;
-        for (int x = 0; x < ignoreSetSize; x++) {
+        for (uint64_t x = 0; x < ignoreSetSize; x++) {
             if (character == ignoreSet[x]) {
                 ignore = true;
                 break;
@@ -46,9 +46,9 @@ void strcpy_ignore(char* dst, char* src, char* ignoreSet) {
 }
 
 void strlower(char* str) {
-    unsigned long size = strlen(str);
+    uint64_t size = strlen(str);
 
-    for (int i = 0; i < size; i++) {
+    for (uint64_t i = 0; i < size; i++) {
         str[i] = tolower(str[i]);
     }
 }
@@ -57,7 +57,7 @@ uint64_t strcount(char character, char* str) {
     size_t length = strlen(str);
     uint64_t count = 0;
 
-    for (int i = 0; i < length; i++) {
+    for (uint64_t i = 0; i < length; i++) {
         if (str[i] == character) {
             count++;
         }

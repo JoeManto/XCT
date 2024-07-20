@@ -2,6 +2,15 @@
 #include "../TestCaseMatching/matcher.h"
 #include <regex.h>
 
+uint fparse_commentOutUnMatchedTestCase(char* buffer);
+uint fparse_travelThroughTestCase(char* buffer);
+uint64_t fparse_openTargetFile(char* fileName);
+void fparse_readFileIgnoringComments(void);
+void fparse_searchTargetBuffer(char* buffer);
+void fparse_addChar(char c);
+void fparse_removeBlockComment(void);
+void fparse_removeSingleComment(void);
+
 extern Arguments* PRO_ARGS;
 FILE* tar_file_ptr;
 
@@ -50,7 +59,7 @@ int fparse_process(char* fileName) {
 
 /// Attempts to open a given file and assigns tar_file_ptr on success.
 /// Returns the size of the opened file.
-long fparse_openTargetFile(char* fileName) {
+uint64_t fparse_openTargetFile(char* fileName) {
     if ((tar_file_ptr = fopen(fileName, "r")) == NULL) {
         exitOnError("Couldn't open test target file", -1);
         return -1;
@@ -127,7 +136,7 @@ void fparse_searchTargetBuffer(char* buffer) {
 
 /// Travels through a non matching testcase function
 /// Returns the new index in the buffer to continue scanning. If the end of the file is reached -1 is returned
-int fparse_travelThroughTestCase(char* buffer) {
+uint fparse_travelThroughTestCase(char* buffer) {
     int depth = 0;
     int curOffset = 0;
     
@@ -157,9 +166,9 @@ int fparse_travelThroughTestCase(char* buffer) {
 
 /// Travels through a non matching testcase function. Adding block comment components at the start and end of the testcase
 /// Returns the new index in the buffer to continue scanning. If the end of the file is reached -1 is returned
-int fparse_commentOutUnMatchedTestCase(char* buffer) {
-    int curOffset = 0;
-    
+uint fparse_commentOutUnMatchedTestCase(char* buffer) {
+    uint curOffset = 0;
+
     // Start block comment
     buffer[0] = '/';
     buffer[1] = '*';
@@ -209,9 +218,9 @@ void fparse_addChar(char c) {
 /// Increments file curser until block comment is closed
 void fparse_removeBlockComment(void) {
     char d;
-    int needsLinePadding = 0;
-    int isFirstCharacter = 1;
-    
+    uint needsLinePadding = 0;
+    uint isFirstCharacter = 1;
+
     while ((d=fgetc(tar_file_ptr)) != EOF) {
         // Handle case where same '*' is used for the start and end of block comment
         if (isFirstCharacter && d == '/') {

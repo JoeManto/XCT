@@ -1,6 +1,8 @@
 #ifndef ARGS_DOT_H
 #define ARGS_DOT_H
 
+#include <inttypes.h>
+
 #define ENV_CONTEXT_ARG_COUNT 6
 
 enum Matcher {
@@ -43,7 +45,7 @@ void init_args(void);
 void dealloc_args(void);
 Arguments* newArgs(void);
 
-int parseArgs(int argc, char** argv);
+uint parseArgs(uint argc, char** argv);
 void args_describe(void);
 
 void args_setArgumentsForString(Arguments* args, char* argumentString);

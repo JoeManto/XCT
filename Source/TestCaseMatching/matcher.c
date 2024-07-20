@@ -7,7 +7,7 @@
 
 extern Arguments* PRO_ARGS;
 
-int num_matches;
+uint num_matches;
 match* MATCHES;
 
 void matcher_init(void) {
@@ -25,7 +25,7 @@ void matcher_dealloc(void) {
 /// Attempts to find pattern in given string.
 /// Provide integer ptr to capture index in given string which the pattern starts
 /// @Returns 1 on match success otherwise 0
-int matcher_match(char * string, char * pattern, int * foundAtIndex) {
+int matcher_match(char* string, char* pattern, int* foundAtIndex) {
     regex_t    preg;
     int        rc;
     size_t     nmatch = 1;
@@ -125,7 +125,7 @@ int matcher_doesTestCaseMatch(char* testCase, int testCasePadding) {
     return isMatch;
 }
 
-void matcher_appendMatch(char* line, int line_start, int line_end) {
+void matcher_appendMatch(char* line, uint line_start, uint line_end) {
     // check if more space is needed
     // If so extend by a 10 matches
     if (num_matches % 10 == 0) {

@@ -15,7 +15,7 @@ Arguments* merged_args;
 
 void env_setLongTermContext(void);
 void env_setShortTermContext(void);
-void env_setContext(char *fileName, Arguments* args);
+void env_setContext(char* fileName, Arguments* args);
 
 Arguments* env_retrieveStoredArgs(void) {
     if (merged_args) {
@@ -58,7 +58,7 @@ void env_setShortTermContext(void) {
     }
 }
 
-char* env_contextFilePath(char *fileName) {
+char* env_contextFilePath(char* fileName) {
     char* homePathVar = getenv("HOME");
     char* filePath = malloc(sizeof(char) * (strlen(fileName) + strlen(homePathVar) + 2)); // +1 '/' and +1 for null-term
     strcat(filePath, homePathVar);
@@ -67,10 +67,10 @@ char* env_contextFilePath(char *fileName) {
     return filePath;
 }
 
-void env_setContext(char *fileName, Arguments* args) {
+void env_setContext(char* fileName, Arguments* args) {
     char* filePath = env_contextFilePath(fileName);
 
-    int result;
+    uint result;
     if ((result = env_parseContextFile(filePath, args)) != 0) {
         exitOnError("Failed to parse context file", 0);
     }

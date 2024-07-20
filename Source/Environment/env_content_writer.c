@@ -13,7 +13,7 @@ extern Arguments* PRO_ARGS;
 extern Arguments* short_term_args;
 
 void env_context_writer(char* path, Arguments* args);
-int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
+uint env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
 char* env_argument_value(ContextArgumentType argument_type, Arguments* short_term_args, Arguments* main_args);
 
 void env_save_short_term_context(void) {
@@ -75,7 +75,7 @@ char* env_argument_value(ContextArgumentType argument_type, Arguments* short_ter
     return NULL;
 }
 
-int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer) {
+uint env_write_argument(ContextArgumentType argument_type, char* value, char* buffer) {
     if (value == NULL) {
         return 0;
     }

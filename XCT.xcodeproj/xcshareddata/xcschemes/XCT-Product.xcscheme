@@ -52,7 +52,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-t testTargetFile -s testExampleCase -P $testProject -S testScheme -O iOS"
+            argument = "-t testTargetFile -s testExampleCase -P $testProject -S $testScheme -O $iOS"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-S $testScheme"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -15,7 +15,7 @@ Arguments* merged_args;
 
 void env_setLongTermContext(void);
 void env_setShortTermContext(void);
-void env_setContext(char *path, Arguments* args);
+void env_setContext(char *fileName, Arguments* args);
 
 Arguments* env_retrieveStoredArgs(void) {
     if (merged_args) {
@@ -37,7 +37,7 @@ void env_setLongTermContext(void) {
 
     ulog(info, "Retrieving long term context");
     long_term_args = newArgs();
-    env_setContext("/tmp/.xctrc-test-long", long_term_args);
+    env_setContext(".xctrc-long", long_term_args);
 
     if (long_term_args == NULL) {
         ulog(error, "Failed to retrieve long term context");
@@ -51,16 +51,24 @@ void env_setShortTermContext(void) {
 
     ulog(info, "Retrieving short term context");
     short_term_args = newArgs();
-    env_setContext("/tmp/.xctrc-test-short", short_term_args);
+    env_setContext(".xctrc-short", short_term_args);
 
     if (short_term_args == NULL) {
         ulog(error, "Failed to retrieve short term context");
     }
 }
 
-void env_setContext(char *path, Arguments* args) {
+void env_setContext(char *fileName, Arguments* args) {
+    char* homePathVar = getenv("HOME");
+    char* filePath = malloc(sizeof(char) * (strlen(fileName) + strlen(homePathVar) + 2)); // +1 '/' and +1 for null-term
+    strcat(filePath, homePathVar);
+    strcat(filePath, "/");
+    strcat(filePath, fileName);
+
     int result;
-    if ((result = env_parseContextFile(path, args)) != 0) {
+    if ((result = env_parseContextFile(filePath, args)) != 0) {
         exitOnError("Failed to parse context file", 0);
     }
+
+    free(filePath);
 }

@@ -18,7 +18,8 @@ ContextArgumentType* unusedComponents;
 int env_parseContextFile(char* path, Arguments* args) {
     FILE* file;
     if ((file = fopen(path, "r")) == NULL) {
-        exitOnError("Failed to open argument context file", 0);
+        ulogFormat(error, 100, "Failed to open argument context file %s\n", path);
+        exitOnError("Failed to open context file", 0);
     }
 
     ContextArgumentType components[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };

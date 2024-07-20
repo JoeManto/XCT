@@ -15,7 +15,7 @@ void env_context_writer(char* path, Arguments* args);
 int env_write_argument(ContextArgumentType argument_type, char* value, char* buffer);
 
 void env_save_short_term_context(void) {
-    env_context_writer("/tmp/.xctrc-test-short", PRO_ARGS);
+    env_context_writer("/tmp/short-term-out", PRO_ARGS);
 }
 
 void env_context_writer(char* path, Arguments* args) {
@@ -64,7 +64,7 @@ void env_context_writer(char* path, Arguments* args) {
     }
 
     if (fwrite(buffer, sizeof(char), total_bytes_written, file) == 0) {
-        ulog(warning, "Nothing written to enviorment context file");
+        ulog(warning, "Nothing written to environment context file");
     }
 
     fflush(file);

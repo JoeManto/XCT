@@ -58,9 +58,9 @@ uint parseArgs(uint argc, char** argv) {
     while ((option = getopt_long(argc, argv, "t:e:s:d:P:S:O:D:", long_options, &option_index)) != EOF) {
 
         bool hasSavePrefix = false;
-        if (optarg != NULL && optarg[0] == '$') {
+        if (optarg != NULL && optarg[0] == SAVE_TOKEN) {
             hasSavePrefix = true;
-            optarg += 1; // Strip the '$'.
+            optarg += 1; // Strip the '@'.
         }
 
         switch(option) {

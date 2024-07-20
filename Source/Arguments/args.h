@@ -4,6 +4,7 @@
 #include <inttypes.h>
 
 #define ENV_CONTEXT_ARG_COUNT 6
+#define SAVE_TOKEN '@'
 
 enum Matcher {
   exact = 0,

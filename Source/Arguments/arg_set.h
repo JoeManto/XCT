@@ -10,7 +10,7 @@ uint8_t args_setTestTargetFileProp(char* target);
 uint8_t args_setSchemeProp(char* scheme);
 uint8_t args_setOSProp(char* os);
 uint8_t args_setDeviceProp(char* device);
-void args_setNoBuild(uint_8 noBuild);
+void args_setNoBuild(uint8_t noBuild);
 void args_setSavedArgument(ContextArgumentType type);
 
 #endif /* ARG_SET_DOT_H */

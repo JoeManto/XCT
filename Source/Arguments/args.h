@@ -57,5 +57,6 @@ ContextArgumentType args_getContentArgumentForLabel(char label);
 char* args_argumentComponent(ContextArgumentType argument, char* value);
 Arguments* args_merge_new(Arguments* long_term, Arguments* short_term);
 void args_merge(Arguments* long_term, Arguments* short_term);
+uint8_t args_needsFileParsing(Arguments* args);
 
 #endif /* ARGS_DOT_H */

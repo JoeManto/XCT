@@ -5,6 +5,6 @@
 
 void fparse_init(void);
 void fparse_dealloc(void);
-int fparse_process(char* fileName);
+uint8_t fparse_start(void);
 
 #endif /* TEST_FILE_PARSER_DOT_H */

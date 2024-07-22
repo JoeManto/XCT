@@ -28,16 +28,26 @@ int main(int argc, char** argv) {
     args_merge(storedArgs, PRO_ARGS);
     args_describe();
 
-    if (!util_containsProjectOrWorkspace(".")) {
-        ulog(warning, "Missing project or workspace at current directory");
+    env_save_short_term_context();
+   
+    if (args_needsFileParsing(PRO_ARGS)) {
+        ulogFormat(info, FILENAME_MAX, "Starting test file processing %s", PRO_ARGS->testTargetFile);
+
+        if (!util_containsProjectOrWorkspace(".")) {
+            exitOnError("Utilizing non-exact matching types require XCT to be executed from the root of the project or workspace.", errno);
+        }
+
+        fparse_init();
+        fparse_start();
     }
 
-    env_save_short_term_context();
     //exec_run();
 
     fparse_dealloc();
     dealloc_args();
-    
     return 0;
 }
+
+
+
 

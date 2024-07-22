@@ -24,7 +24,7 @@ void ulog(LogMessage level, char *message) {
     }
 }
 
-void ulogFormat(LogMessage level, uint8_t size, char *message, const char * format, ... ) {
+void ulogFormat(LogMessage level, uint64_t size, char *message, const char * format, ... ) {
     char buffer[size];
     memset(buffer, 0, size);
     snprintf(buffer, size, message, format);

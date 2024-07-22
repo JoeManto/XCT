@@ -12,6 +12,7 @@
 #include <dirent.h>
 #include "../xct.h"
 
+uint8_t util_findFile(char* basePath, char* pathBuffer, char* fileName);
 uint8_t util_containsProjectOrWorkspace(char* path);
 uint8_t util_isProjectFile(char* filePath);
 uint8_t util_isWorkspaceFile(char* filePath);

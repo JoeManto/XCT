@@ -334,6 +334,24 @@ ContextArgumentType args_getContextArgumentTypeForKey(char* key) {
     return unknown;
 }
 
+uint8_t args_needsFileParsing(Arguments* args) {
+    if (!args->testTargetFile) {
+        return 0;
+    }
+
+    if (!args->matchingType) {
+        return 0;
+    }
+
+    switch (args->matchingType) {
+        case exact:
+            return 0;
+        case substring:
+        case regex:
+            return 1;
+    }
+}
+
 void args_describe(void) {
     if (PRO_ARGS == NULL) {
         printf("%s\n","Can't print args: PRO_ARGS is NULL");

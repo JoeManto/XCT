@@ -2,9 +2,10 @@
 #include "../TestCaseMatching/matcher.h"
 #include <regex.h>
 
+uint8_t fparse_process(char* filePath);
 uint fparse_commentOutUnMatchedTestCase(char* buffer);
 uint fparse_travelThroughTestCase(char* buffer);
-uint64_t fparse_openTargetFile(char* fileName);
+uint64_t fparse_openTargetFile(char* filePath);
 void fparse_readFileIgnoringComments(void);
 void fparse_searchTargetBuffer(char* buffer);
 void fparse_addChar(char c);
@@ -36,10 +37,28 @@ void fparse_dealloc(void) {
     }
 }
 
-/// Starts the process of finding matching testcases in the given file
-int fparse_process(char* fileName) {
-    long fileLength = fparse_openTargetFile(fileName);
+uint8_t fparse_start(void) {
+    if (!PRO_ARGS->testTargetFile) {
+        exitOnError("Expected target file", errno);
+    }
     
+    // Find the actual system path of the provided test target file.
+    char* targetFileFullPath = malloc(sizeof(char) * (FILENAME_MAX + 1));
+    memset(targetFileFullPath, 0, FILENAME_MAX + 1);
+    if (!util_findFile(".", targetFileFullPath, PRO_ARGS->testTargetFile)) {
+        exitOnError("Failed to find input file", errno);
+    }
+    
+    fparse_process(targetFileFullPath);
+
+    free(targetFileFullPath);
+    return 0;
+}
+
+/// Starts the process of finding matching testcases in the given file
+uint8_t fparse_process(char* filePath) {
+    long fileLength = fparse_openTargetFile(filePath);
+
     // Alloc file buffer
     tar_file_buffer = malloc(sizeof(char) * fileLength);
     
@@ -59,8 +78,8 @@ int fparse_process(char* fileName) {
 
 /// Attempts to open a given file and assigns tar_file_ptr on success.
 /// Returns the size of the opened file.
-uint64_t fparse_openTargetFile(char* fileName) {
-    if ((tar_file_ptr = fopen(fileName, "r")) == NULL) {
+uint64_t fparse_openTargetFile(char* filePath) {
+    if ((tar_file_ptr = fopen(filePath, "r")) == NULL) {
         exitOnError("Couldn't open test target file", -1);
         return -1;
     }

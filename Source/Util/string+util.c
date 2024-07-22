@@ -65,3 +65,13 @@ uint64_t strcount(char character, char* str) {
 
     return count;
 }
+
+uint8_t str_hasExtension(char* fileName, char* extension) {
+    fileName = strrchr(fileName, '.');
+
+    if (fileName != NULL) {
+        return strcmp(fileName + sizeof(char), extension) == 0;
+    }
+
+    return 0;
+}

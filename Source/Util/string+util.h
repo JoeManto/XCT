@@ -15,5 +15,6 @@ void freeStr(char* ptr);
 void strcpy_ignore(char* dst, char* src, char* ignoreSet);
 void strlower(char* str);
 uint64_t strcount(char character, char* str);
+uint8_t str_hasExtension(char* fileName, char* extension);
 
 #endif /* string_util_h */

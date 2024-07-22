@@ -6,6 +6,7 @@ comp:
 	gcc Source/Arguments/arg_set.c -o ./build/arg_set.o -c
 	gcc Source/Util/util.c -o ./build/util.o -c
 	gcc Source/Util/string+util.c -o ./build/string+util.o -c
+	gcc Source/Util/file+util.c -o ./build/file+util.o -c
 	gcc Source/TestSuiteParsing/fparse_testsuite.c -o ./build/fparse_testsuite.o -c
 	gcc Source/TestCaseMatching/matcher.c -o ./build/matcher.o -c
 	gcc Source/Exec/exec_command.c -o ./build/exec_command.o -c

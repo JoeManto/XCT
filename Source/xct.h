@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include "Util/util.h"
 #include "Util/string+util.h"
+#include "Util/file+util.h"
 #include "Arguments/args.h"
 
 #endif /* XCT_DOT_H */

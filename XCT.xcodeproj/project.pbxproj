@@ -21,6 +21,7 @@
 		705F09B62BF953180029AFE0 /* env_content_writer.c in Sources */ = {isa = PBXBuildFile; fileRef = 705F09B52BF953180029AFE0 /* env_content_writer.c */; };
 		70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4262B9CF22F0001EF5B /* env_context_parser.c */; };
 		70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4292B9D5D7C0001EF5B /* string+util.c */; };
+		70F14DC32C4CA1F80019974C /* file+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70F14DC22C4CA1F80019974C /* file+util.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,6 +77,8 @@
 		70A8D4262B9CF22F0001EF5B /* env_context_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = env_context_parser.c; sourceTree = "<group>"; };
 		70A8D4282B9D5D7C0001EF5B /* string+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string+util.h"; sourceTree = "<group>"; };
 		70A8D4292B9D5D7C0001EF5B /* string+util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "string+util.c"; sourceTree = "<group>"; };
+		70F14DC12C4CA1F80019974C /* file+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "file+util.h"; sourceTree = "<group>"; };
+		70F14DC22C4CA1F80019974C /* file+util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "file+util.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				70186C912A81C340008F6E3F /* util.h */,
 				70A8D4292B9D5D7C0001EF5B /* string+util.c */,
 				70A8D4282B9D5D7C0001EF5B /* string+util.h */,
+				70F14DC22C4CA1F80019974C /* file+util.c */,
+				70F14DC12C4CA1F80019974C /* file+util.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				70186CC62A81C99F008F6E3F /* args.c in Sources */,
 				70186CC32A81C995008F6E3F /* exec_command.c in Sources */,
 				70186CBE2A81C981008F6E3F /* util.c in Sources */,
+				70F14DC32C4CA1F80019974C /* file+util.c in Sources */,
 				70186CC52A81C99D008F6E3F /* arg_set.c in Sources */,
 				705F09B62BF953180029AFE0 /* env_content_writer.c in Sources */,
 				70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */,

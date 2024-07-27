@@ -7,6 +7,7 @@
 uint8_t args_setMatchingProps(char* matchingString, char type);
 uint8_t args_setProjectProps(char* projectTarget);
 uint8_t args_setTestTargetFileProp(char* target);
+uint8_t args_setTargetProp(char* target);
 uint8_t args_setSchemeProp(char* scheme);
 uint8_t args_setOSProp(char* os);
 uint8_t args_setDeviceProp(char* device);

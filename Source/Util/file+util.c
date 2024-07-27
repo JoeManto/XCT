@@ -30,7 +30,11 @@ uint8_t util_findFile(char* basePath, char* pathBuffer, char* fileName) {
                 }
             }
 
-            if (directory->d_type != DT_DIR && strcmp(directory->d_name, fileName) == 0) {
+            char* name = malloc(sizeof(char) * strlen(directory->d_name));
+            strcpy(name, directory->d_name);
+            util_removingFileExtension(name);
+
+            if (directory->d_type != DT_DIR && strcmp(name, fileName) == 0) {
                 sprintf(pathBuffer, "%s/%s", basePath, directory->d_name);
                 closedir(handle);
                 return 1;
@@ -117,4 +121,14 @@ uint8_t util_copyFile(char* destinationPath, char* sourcePath) {
     fclose(destinationHandle);
 
     return success == 1;
+}
+
+uint8_t util_removingFileExtension(char* filePath) {
+    char* extensionIndicator = strrchr(filePath, '.');
+    if (extensionIndicator) {
+        *extensionIndicator = '\0';
+        return 1;
+    }
+    
+    return 0;
 }

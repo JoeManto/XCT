@@ -6,7 +6,7 @@
 extern int opterr;
 
 Arguments* PRO_ARGS;
-ContextArgumentType contextArgTypes[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, os, device };
+ContextArgumentType contextArgTypes[ENV_CONTEXT_ARG_COUNT] = { projectTarget, fileTarget, scheme, target, os, device };
 
 Arguments* newArgs(void) {
     Arguments* arguments = malloc(sizeof(Arguments));
@@ -17,6 +17,7 @@ Arguments* newArgs(void) {
     arguments->testTargetFile = NULL;
     arguments->projectTarget = NULL;
     arguments->matchingString = NULL;
+    arguments->target = NULL;
     arguments->scheme = NULL;
     arguments->os = NULL;
     arguments->device = NULL;
@@ -55,7 +56,7 @@ uint parseArgs(uint argc, char** argv) {
     int option_index = 0;
     char option;
     
-    while ((option = getopt_long(argc, argv, "t:e:s:d:P:S:O:D:", long_options, &option_index)) != EOF) {
+    while ((option = getopt_long(argc, argv, "t:e:s:d:P:T:S:O:D:", long_options, &option_index)) != EOF) {
 
         bool hasSavePrefix = false;
         if (optarg != NULL && optarg[0] == SAVE_TOKEN) {
@@ -77,6 +78,10 @@ uint parseArgs(uint argc, char** argv) {
             case 'P':
                 printf("set project: %s\n", optarg);
                 opterr = args_setProjectProps(optarg);
+                break;
+            case 'T':
+                printf("set target: %s\n", optarg);
+                opterr = args_setTargetProp(optarg);
                 break;
             case 'S':
                 printf("set scheme: %s\n", optarg);
@@ -164,6 +169,9 @@ char* args_argumentComponent(ContextArgumentType argument, char* value) {
         case fileTarget:
             strcpy(component, "-t,");
             break;
+        case target:
+            strcpy(component, "-T,");
+            break;
         case scheme:
             strcpy(component, "-S,");
             break;
@@ -221,6 +229,18 @@ void args_merge(Arguments* long_term, Arguments* short_term) {
                 }
 
                 break;
+            case target:
+                if (short_term->target) {
+                    args_setTargetProp(short_term->target);
+                    break;
+                }
+
+                if (long_term->target) {
+                    args_setTargetProp(long_term->target);
+                    break;
+                }
+
+                break;
             case scheme:
                 if (short_term->scheme) {
                     args_setSchemeProp(short_term->scheme);
@@ -270,6 +290,8 @@ char* args_getContextArgumentTypeKey(ContextArgumentType type) {
             return "project";
         case fileTarget:
             return "file";
+        case target:
+            return "target";
         case scheme:
             return "scheme";
         case os:
@@ -312,6 +334,8 @@ char* args_getContextArgumentValueForKey(ContextArgumentType type, Arguments* ar
             return args->projectTarget;
         case fileTarget:
             return args->testTargetFile;
+        case target:
+            return args->target;
         case scheme:
             return args->scheme;
         case os:

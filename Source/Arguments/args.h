@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#define ENV_CONTEXT_ARG_COUNT 6
+#define ENV_CONTEXT_ARG_COUNT 7
 #define SAVE_TOKEN '@'
 
 enum Matcher {
@@ -20,6 +20,7 @@ enum Project {
 enum ContextArgumentType {
     projectTarget = 0,
     fileTarget,
+    target,
     scheme,
     os,
     device,
@@ -32,6 +33,7 @@ typedef struct Arguments {
     char* testTargetFile;
     char* projectTarget;
     char* matchingString;
+    char* target;
     char* scheme;
     char* os;
     char* device;

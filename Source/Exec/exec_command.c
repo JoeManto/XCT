@@ -26,8 +26,8 @@ int buildCommand(char* commandBuffer) {
 
     sprintf(
         commandBuffer,
-        "xcodebuild test -scheme %s -only-testing %s",
-        PRO_ARGS->scheme, PRO_ARGS->testTargetFile
+        "xcodebuild test -scheme %s -only-testing %s/%s",
+        PRO_ARGS->scheme, PRO_ARGS->target, PRO_ARGS->testTargetFile
     );
 
     return 0;

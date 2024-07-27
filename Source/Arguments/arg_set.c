@@ -39,6 +39,17 @@ uint8_t args_setTestTargetFileProp(char* target) {
     return 1;
 }
 
+/// Sets the `target` argument
+/// Returns Bool indicating success
+uint8_t args_setTargetProp(char* target) {
+    if (target == NULL) {
+        return 0;
+    }
+
+    args_assignStringProp(&PRO_ARGS->target, target);
+    return 1;
+}
+
 /// Sets the `scheme` argument
 /// Returns Bool indicating success
 uint8_t args_setSchemeProp(char* scheme) {

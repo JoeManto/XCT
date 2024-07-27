@@ -100,6 +100,7 @@ void fparse_prepare(void) {
 
 void fparse_restore(void) {
     if (tar_file_ptr) {
+        fflush(tar_file_ptr);
         fclose(tar_file_ptr);
     }
 
@@ -155,6 +156,7 @@ char* fparse_getCopyTargetFilePath(char* filePath) {
 
 uint8_t fparse_writeModifiedBuffer(void) {
     if (tar_file_ptr) {
+        fflush(tar_file_ptr);
         fclose(tar_file_ptr);
     }
 
@@ -168,7 +170,9 @@ uint8_t fparse_writeModifiedBuffer(void) {
         ulog(error, "Failed to write buffer to test target");
         return 0;
     }
-
+    
+    fflush(tar_file_ptr);
+    fclose(tar_file_ptr);
     return 1;
 }
 

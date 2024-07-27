@@ -56,7 +56,11 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-t $test"
+            argument = "-t XCT-Product"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-t XCT-Product -s example"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

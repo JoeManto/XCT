@@ -2,10 +2,14 @@
 #include "../TestCaseMatching/matcher.h"
 #include <regex.h>
 
+void fparse_prepare(void);
+void fparse_restore(void);
 uint8_t fparse_process(char* filePath);
+uint8_t fparse_writeModifiedBuffer(void);
 uint fparse_commentOutUnMatchedTestCase(char* buffer);
 uint fparse_travelThroughTestCase(char* buffer);
 uint64_t fparse_openTargetFile(char* filePath);
+char* fparse_getCopyTargetFilePath(char* filePath);
 void fparse_readFileIgnoringComments(void);
 void fparse_searchTargetBuffer(char* buffer);
 void fparse_addChar(char c);
@@ -18,6 +22,9 @@ FILE* tar_file_ptr;
 char* tar_file_buffer = NULL;
 int tar_byteOffset = 0;
 int tar_buffer_size = -1;
+
+char* target_file_path;
+char* target_file_copy_path;
 
 void fparse_init(void) {
     matcher_init();
@@ -35,51 +42,83 @@ void fparse_dealloc(void) {
         free(tar_file_buffer);
         tar_file_buffer = NULL;
     }
+
+    if (target_file_path) {
+        free(target_file_path);
+        target_file_path = NULL;
+    }
+
+    if (target_file_copy_path) {
+        free(target_file_copy_path);
+        target_file_copy_path = NULL;
+    }
 }
 
 uint8_t fparse_start(void) {
     if (!PRO_ARGS->testTargetFile) {
         exitOnError("Expected target file", errno);
     }
-    
-    // Find the actual system path of the provided test target file.
-    char* targetFileFullPath = malloc(sizeof(char) * (FILENAME_MAX + 1));
-    memset(targetFileFullPath, 0, FILENAME_MAX + 1);
-    if (!util_findFile(".", targetFileFullPath, PRO_ARGS->testTargetFile)) {
-        exitOnError("Failed to find input file", errno);
-    }
-    
-    fparse_process(targetFileFullPath);
 
-    free(targetFileFullPath);
+    fparse_prepare();
+
+    if (!fparse_process(target_file_path)) {
+        // At this point we haven't touched the source file, so just remove the copy.
+        remove(target_file_copy_path);
+        exitOnError("Failed to process test target", errno);
+    }
+
+    if (!fparse_writeModifiedBuffer()) {
+        ulog(error, "Failed to write to test target");
+        return 1;
+    }
+
     return 0;
 }
 
-/// Starts the process of finding matching testcases in the given file
-uint8_t fparse_process(char* filePath) {
-    long fileLength = fparse_openTargetFile(filePath);
+void fparse_prepare(void) {
+    // Find the actual system path of the provided test target file.
+    target_file_path = malloc(sizeof(char) * (FILENAME_MAX + 1));
+    memset(target_file_path, 0, FILENAME_MAX + 1);
+    if (!util_findFile(".", target_file_path, PRO_ARGS->testTargetFile)) {
+        exitOnError("Failed to find input file", errno);
+    }
 
-    // Alloc file buffer
-    tar_file_buffer = malloc(sizeof(char) * fileLength);
-    
-    // Read file into buffer
-    fparse_readFileIgnoringComments();
-    
-    tar_buffer_size = tar_byteOffset;
-    tar_byteOffset = 0;
-    
-    // Attempt to match testcases in buffer
-    fparse_searchTargetBuffer(tar_file_buffer);
-    
-    printf("%s\n",tar_file_buffer);
-    fclose(tar_file_ptr);
-    return 0;
+    if (*target_file_path == '\0') {
+        exitOnError("Empty input file", errno);
+    }
+
+    ulogFormat(info, FILENAME_MAX, "Found file %s", target_file_path);
+
+    if (!(target_file_copy_path = fparse_getCopyTargetFilePath(target_file_path))) {
+        exitOnError("Failed to resolve copy path for test target", errno);
+    }
+
+    if (!util_copyFile(target_file_copy_path, target_file_path)) {
+        exitOnError("Failed to copy test target", errno);
+    }
+}
+
+void fparse_restore(void) {
+    if (tar_file_ptr) {
+        fclose(tar_file_ptr);
+    }
+
+    if (!util_copyFile(target_file_path, target_file_copy_path)) {
+        // Don't remove the copy.
+        exitOnError("Failed to replace test target with previous copy", errno);
+    }
+
+    if (remove(target_file_copy_path)) {
+        exitOnError("Failed to remove test target copy", errno);
+    }
+
+    ulog(info, "Removed test target copy");
 }
 
 /// Attempts to open a given file and assigns tar_file_ptr on success.
 /// Returns the size of the opened file.
 uint64_t fparse_openTargetFile(char* filePath) {
-    if ((tar_file_ptr = fopen(filePath, "r")) == NULL) {
+    if ((tar_file_ptr = fopen(filePath, "r+")) == NULL) {
         exitOnError("Couldn't open test target file", -1);
         return -1;
     }
@@ -96,7 +135,67 @@ uint64_t fparse_openTargetFile(char* filePath) {
     return file_length;
 }
 
+char* fparse_getCopyTargetFilePath(char* filePath) {
+    // Create a copy of the file at the same path (.../copy-<file>)
+    char* lastComponent = strchr(filePath, '/');
+    char* fileCopyPath = malloc(sizeof(char) * (FILENAME_MAX + 1));
+    memset(fileCopyPath, 0, FILENAME_MAX + 1);
+
+    uint idx = 0;
+    while (&filePath[idx] != lastComponent) {
+        fileCopyPath[idx] = filePath[idx];
+        idx++;
+    }
+
+    snprintf(fileCopyPath, FILENAME_MAX, "%s/%s-%s", fileCopyPath, "copy", PRO_ARGS->testTargetFile);
+    return fileCopyPath;
+}
+
+// MARK: Buffer Writing
+
+uint8_t fparse_writeModifiedBuffer(void) {
+    if (tar_file_ptr) {
+        fclose(tar_file_ptr);
+    }
+
+    if ((tar_file_ptr = fopen(target_file_path, "w+")) == NULL) {
+        exitOnError("Couldn't open test target file", errno);
+        return 0;
+    }
+
+    printf("Writing Buffer:\n%s\n", tar_file_buffer);
+    if (fwrite(tar_file_buffer, tar_buffer_size, 1, tar_file_ptr) == 0) {
+        ulog(error, "Failed to write buffer to test target");
+        return 0;
+    }
+
+    return 1;
+}
+
 // MARK: Buffer Parsing
+
+/// Starts the process of finding matching testcases in the given file
+uint8_t fparse_process(char* filePath) {
+    uint64_t fileLength = fparse_openTargetFile(filePath);
+    if (fileLength == 0) {
+        ulog(error, "Empty test target");
+        return 0;
+    }
+    // Alloc file buffer
+    tar_file_buffer = malloc(sizeof(char) * fileLength);
+
+    // Read file into buffer
+    fparse_readFileIgnoringComments();
+
+    tar_buffer_size = tar_byteOffset;
+    tar_byteOffset = 0;
+
+    // Attempt to match testcases in buffer
+    fparse_searchTargetBuffer(tar_file_buffer);
+
+    printf("%s\n",tar_file_buffer);
+    return 1;
+}
 
 /// Iterates through target file buffer line by line checking for testcases that match the matching requirements
 /// Testcases that don't match are commented out in the buffer

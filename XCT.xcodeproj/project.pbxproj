@@ -22,6 +22,7 @@
 		70A8D4272B9CF22F0001EF5B /* env_context_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4262B9CF22F0001EF5B /* env_context_parser.c */; };
 		70A8D42A2B9D5D7C0001EF5B /* string+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70A8D4292B9D5D7C0001EF5B /* string+util.c */; };
 		70F14DC32C4CA1F80019974C /* file+util.c in Sources */ = {isa = PBXBuildFile; fileRef = 70F14DC22C4CA1F80019974C /* file+util.c */; };
+		70F14DC52C4F80F20019974C /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F14DC42C4F80F20019974C /* SwiftTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +80,8 @@
 		70A8D4292B9D5D7C0001EF5B /* string+util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "string+util.c"; sourceTree = "<group>"; };
 		70F14DC12C4CA1F80019974C /* file+util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "file+util.h"; sourceTree = "<group>"; };
 		70F14DC22C4CA1F80019974C /* file+util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "file+util.c"; sourceTree = "<group>"; };
+		70F14DC42C4F80F20019974C /* SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTests.swift; sourceTree = "<group>"; };
+		70F1BACE2C54B76100D83989 /* XCTTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = XCTTests.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,14 +105,15 @@
 		70186C802A81C30D008F6E3F = {
 			isa = PBXGroup;
 			children = (
+				70F1BACE2C54B76100D83989 /* XCTTests.xctestplan */,
 				70186CB12A81C340008F6E3F /* LICENSE */,
 				70186CB02A81C340008F6E3F /* makefile */,
 				70186C8B2A81C340008F6E3F /* README.md */,
 				70186C8C2A81C340008F6E3F /* Source */,
 				708458872C4B56AD00DFB9C7 /* Resources */,
 				7084588F2C4B7A4400DFB9C7 /* Scripts */,
-				70186CA62A81C340008F6E3F /* tests */,
 				705F09AB2BF1F44D0029AFE0 /* XCTTests */,
+				70186CA62A81C340008F6E3F /* tests */,
 				70186CB72A81C945008F6E3F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -245,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				705F09AC2BF1F44D0029AFE0 /* XCTTests.m */,
+				70F14DC42C4F80F20019974C /* SwiftTests.swift */,
 			);
 			path = XCTTests;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 					};
 					705F09A92BF1F44D0029AFE0 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -420,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				705F09AD2BF1F44D0029AFE0 /* XCTTests.m in Sources */,
+				70F14DC52C4F80F20019974C /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +605,7 @@
 		705F09AE2BF1F44D0029AFE0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9VRURLA883;
@@ -608,12 +616,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		705F09AF2BF1F44D0029AFE0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9VRURLA883;
@@ -624,6 +635,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

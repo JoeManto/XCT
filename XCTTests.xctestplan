@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "729611A3-746A-4808-8379-9F49FFD5D964",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:XCT.xcodeproj",
+        "identifier" : "705F09A92BF1F44D0029AFE0",
+        "name" : "XCTTests"
+      }
+    }
+  ],
+  "version" : 1
+}

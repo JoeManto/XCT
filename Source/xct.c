@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     args_describe();
 
     env_save_short_term_context();
-   
+
     if (args_needsFileParsing(PRO_ARGS)) {
         ulogFormat(info, FILENAME_MAX, "Starting test file processing %s", PRO_ARGS->testTargetFile);
 
@@ -39,15 +39,15 @@ int main(int argc, char** argv) {
 
         fparse_init();
         fparse_start();
+
+        exec_run();
+
+        fparse_restore();
+        fparse_dealloc();
+    } else {
+        exec_run();
     }
 
-    //exec_run();
-
-    fparse_dealloc();
     dealloc_args();
     return 0;
 }
-
-
-
-

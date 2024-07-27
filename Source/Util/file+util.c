@@ -6,7 +6,6 @@
 //
 
 #include "file+util.h"
-#include <dirent.h>
 
 /// Assigns the provided buffer with the path of the file if a recursive match is found starting from the provided base path.
 /// Returns a boolean indicating if the buffer was written to.
@@ -22,14 +21,16 @@ uint8_t util_findFile(char* basePath, char* pathBuffer, char* fileName) {
                 && strcmp(directory->d_name,"..") != 0) {
                 // Search nested directory.
                 char sub_directory_path[FILENAME_MAX];
+                memset(sub_directory_path, 0, FILENAME_MAX);
                 sprintf(sub_directory_path, "%s/%s", basePath, directory->d_name);
                 if (util_findFile(sub_directory_path, pathBuffer, fileName)) {
                     // Exit early if we found the file in nested directory.
-                    break;
+                    closedir(handle);
+                    return 1;
                 }
             }
 
-            if (strcmp(directory->d_name, fileName) == 0) {
+            if (directory->d_type != DT_DIR && strcmp(directory->d_name, fileName) == 0) {
                 sprintf(pathBuffer, "%s/%s", basePath, directory->d_name);
                 closedir(handle);
                 return 1;
@@ -73,4 +74,47 @@ uint8_t util_isProjectFile(char* filePath) {
 
 uint8_t util_isWorkspaceFile(char* filePath) {
     return str_hasExtension(filePath, "xcworkspace");
+}
+
+uint8_t util_copyFile(char* destinationPath, char* sourcePath) {
+    FILE* sourceHandle = fopen(sourcePath, "r");
+    if (!sourceHandle) {
+        ulogFormat(error, FILENAME_MAX, "Failed to open source path %s", sourcePath);
+        return 0;
+    }
+
+    FILE* destinationHandle = fopen(destinationPath, "w+");
+    if (!destinationHandle) {
+        ulogFormat(error, FILENAME_MAX, "Failed to open destination path %s", destinationPath);
+        fclose(sourceHandle);
+        return 0;
+    }
+
+    uint8_t success = 1;
+
+    char character;
+    while ((character = fgetc(sourceHandle)) != EOF) {
+        if (ferror(sourceHandle)) {
+            ulog(error, "Error reading source file");
+            success = 0;
+            break;
+        }
+
+        if (feof(sourceHandle)) {
+            ulog(info, "Reached end of source file");
+            break;
+        }
+
+        if (fputc(character, destinationHandle) == EOF) {
+            ulog(error, "Error while occurred while copying source file");
+            success = 0;
+            break;
+        }
+    }
+
+    fclose(sourceHandle);
+    fflush(destinationHandle);
+    fclose(destinationHandle);
+
+    return success == 1;
 }

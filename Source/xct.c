@@ -8,16 +8,10 @@
 
 extern Arguments* PRO_ARGS;
 
-void showProgramArgs(uint argc, char** argv) {
-    for (int i = 0; i < argc; i++) {
-        if (argv[i]) {
-            printf("arg[%d]:'%s'\n", i, argv[i]);
-        }
-    }
-}
+void _showProgramArgs(uint argc, char** argv);
 
 int main(int argc, char** argv) {
-    showProgramArgs(argc, argv);
+    _showProgramArgs(argc, argv);
 
     init_args();
     parseArgs(argc, argv);
@@ -50,4 +44,12 @@ int main(int argc, char** argv) {
 
     dealloc_args();
     return 0;
+}
+
+void _showProgramArgs(uint argc, char** argv) {
+    for (int i = 0; i < argc; i++) {
+        if (argv[i]) {
+            printf("arg[%d]:'%s'\n", i, argv[i]);
+        }
+    }
 }

@@ -2,19 +2,18 @@
 #include "../TestCaseMatching/matcher.h"
 #include <regex.h>
 
-void fparse_prepare(void);
-void fparse_restore(void);
-uint8_t fparse_process(char* filePath);
-uint8_t fparse_writeModifiedBuffer(void);
-uint fparse_commentOutUnMatchedTestCase(char* buffer);
-uint fparse_travelThroughTestCase(char* buffer);
-uint64_t fparse_openTargetFile(char* filePath);
-char* fparse_getCopyTargetFilePath(char* filePath);
-void fparse_readFileIgnoringComments(void);
-void fparse_searchTargetBuffer(char* buffer);
-void fparse_addChar(char c);
-void fparse_removeBlockComment(void);
-void fparse_removeSingleComment(void);
+void _fparse_prepare(void);
+uint8_t _fparse_process(char* filePath);
+uint8_t _fparse_writeModifiedBuffer(void);
+uint _fparse_commentOutUnMatchedTestCase(char* buffer);
+uint _fparse_travelThroughTestCase(char* buffer);
+uint64_t _fparse_openTargetFile(char* filePath);
+char* _fparse_getCopyTargetFilePath(char* filePath);
+void _fparse_readFileIgnoringComments(void);
+void _fparse_searchTargetBuffer(char* buffer);
+void _fparse_addChar(char c);
+void _fparse_removeBlockComment(void);
+void _fparse_removeSingleComment(void);
 
 extern Arguments* PRO_ARGS;
 FILE* tar_file_ptr;
@@ -59,15 +58,15 @@ uint8_t fparse_start(void) {
         exitOnError("Expected target file", errno);
     }
 
-    fparse_prepare();
+    _fparse_prepare();
 
-    if (!fparse_process(target_file_path)) {
+    if (!_fparse_process(target_file_path)) {
         // At this point we haven't touched the source file, so just remove the copy.
         remove(target_file_copy_path);
         exitOnError("Failed to process test target", errno);
     }
 
-    if (!fparse_writeModifiedBuffer()) {
+    if (!_fparse_writeModifiedBuffer()) {
         ulog(error, "Failed to write to test target");
         return 1;
     }
@@ -75,7 +74,7 @@ uint8_t fparse_start(void) {
     return 0;
 }
 
-void fparse_prepare(void) {
+void _fparse_prepare(void) {
     // Find the actual system path of the provided test target file.
     target_file_path = malloc(sizeof(char) * (FILENAME_MAX + 1));
     memset(target_file_path, 0, FILENAME_MAX + 1);
@@ -89,7 +88,7 @@ void fparse_prepare(void) {
 
     ulogFormat(info, FILENAME_MAX, "Found file %s", target_file_path);
 
-    if (!(target_file_copy_path = fparse_getCopyTargetFilePath(target_file_path))) {
+    if (!(target_file_copy_path = _fparse_getCopyTargetFilePath(target_file_path))) {
         exitOnError("Failed to resolve copy path for test target", errno);
     }
 
@@ -118,7 +117,7 @@ void fparse_restore(void) {
 
 /// Attempts to open a given file and assigns tar_file_ptr on success.
 /// Returns the size of the opened file.
-uint64_t fparse_openTargetFile(char* filePath) {
+uint64_t _fparse_openTargetFile(char* filePath) {
     if ((tar_file_ptr = fopen(filePath, "r+")) == NULL) {
         exitOnError("Couldn't open test target file", -1);
         return -1;
@@ -136,7 +135,7 @@ uint64_t fparse_openTargetFile(char* filePath) {
     return file_length;
 }
 
-char* fparse_getCopyTargetFilePath(char* filePath) {
+char* _fparse_getCopyTargetFilePath(char* filePath) {
     // Create a copy of the file at the same path (.../copy-<file>)
     char* lastComponent = strchr(filePath, '/');
     char* fileCopyPath = malloc(sizeof(char) * (FILENAME_MAX + 1));
@@ -154,7 +153,7 @@ char* fparse_getCopyTargetFilePath(char* filePath) {
 
 // MARK: Buffer Writing
 
-uint8_t fparse_writeModifiedBuffer(void) {
+uint8_t _fparse_writeModifiedBuffer(void) {
     if (tar_file_ptr) {
         fflush(tar_file_ptr);
         fclose(tar_file_ptr);
@@ -179,8 +178,8 @@ uint8_t fparse_writeModifiedBuffer(void) {
 // MARK: Buffer Parsing
 
 /// Starts the process of finding matching testcases in the given file
-uint8_t fparse_process(char* filePath) {
-    uint64_t fileLength = fparse_openTargetFile(filePath);
+uint8_t _fparse_process(char* filePath) {
+    uint64_t fileLength = _fparse_openTargetFile(filePath);
     if (fileLength == 0) {
         ulog(error, "Empty test target");
         return 0;
@@ -189,13 +188,13 @@ uint8_t fparse_process(char* filePath) {
     tar_file_buffer = malloc(sizeof(char) * fileLength);
 
     // Read file into buffer
-    fparse_readFileIgnoringComments();
+    _fparse_readFileIgnoringComments();
 
     tar_buffer_size = tar_byteOffset;
     tar_byteOffset = 0;
 
     // Attempt to match testcases in buffer
-    fparse_searchTargetBuffer(tar_file_buffer);
+    _fparse_searchTargetBuffer(tar_file_buffer);
 
     printf("%s\n",tar_file_buffer);
     return 1;
@@ -203,7 +202,7 @@ uint8_t fparse_process(char* filePath) {
 
 /// Iterates through target file buffer line by line checking for testcases that match the matching requirements
 /// Testcases that don't match are commented out in the buffer
-void fparse_searchTargetBuffer(char* buffer) {
+void _fparse_searchTargetBuffer(char* buffer) {
     char* curLine = buffer;
     int offset = 1;
     
@@ -238,7 +237,7 @@ void fparse_searchTargetBuffer(char* buffer) {
         if (nextLine) *nextLine = '\n';
         
         if (isMatch) {
-            if ((offset = fparse_travelThroughTestCase(curLine)) == -1) {
+            if ((offset = _fparse_travelThroughTestCase(curLine)) == -1) {
                 exitOnError("Compilation Error - expected closing '}' token", EINVAL);
             }
             
@@ -247,7 +246,7 @@ void fparse_searchTargetBuffer(char* buffer) {
             }
         }
         else {
-            offset = fparse_commentOutUnMatchedTestCase(curLine);
+            offset = _fparse_commentOutUnMatchedTestCase(curLine);
         }
         
         curLine = curLine + offset;
@@ -258,7 +257,7 @@ void fparse_searchTargetBuffer(char* buffer) {
 
 /// Travels through a non matching testcase function
 /// Returns the new index in the buffer to continue scanning. If the end of the file is reached -1 is returned
-uint fparse_travelThroughTestCase(char* buffer) {
+uint _fparse_travelThroughTestCase(char* buffer) {
     int depth = 0;
     int curOffset = 0;
     
@@ -288,14 +287,14 @@ uint fparse_travelThroughTestCase(char* buffer) {
 
 /// Travels through a non matching testcase function. Adding block comment components at the start and end of the testcase
 /// Returns the new index in the buffer to continue scanning. If the end of the file is reached -1 is returned
-uint fparse_commentOutUnMatchedTestCase(char* buffer) {
+uint _fparse_commentOutUnMatchedTestCase(char* buffer) {
     uint curOffset = 0;
 
     // Start block comment
     buffer[0] = '/';
     buffer[1] = '*';
     
-    if ((curOffset = fparse_travelThroughTestCase(buffer)) == -1) {
+    if ((curOffset = _fparse_travelThroughTestCase(buffer)) == -1) {
         exitOnError("Compilation Error - expected closing '}' token", EINVAL);
     }
     
@@ -308,23 +307,23 @@ uint fparse_commentOutUnMatchedTestCase(char* buffer) {
 // MARK: Buffer Loading
 
 /// Loads file into buffer while skipping over comments
-void fparse_readFileIgnoringComments(void) {
+void _fparse_readFileIgnoringComments(void) {
     char c;
     while ((c=fgetc(tar_file_ptr)) != EOF) {
-        fparse_addChar(c);
+        _fparse_addChar(c);
     }
 }
 
 /// Adds given file character to buffer. If the character indicates the start of a comment.
 /// The file curser will be increased until the comment is ended
-void fparse_addChar(char c) {
+void _fparse_addChar(char c) {
     char d;
     if (c == '/') {
         if ((d=fgetc(tar_file_ptr)) == '*') {
-            fparse_removeBlockComment();
+            _fparse_removeBlockComment();
         }
         else if ( d == '/') {
-            fparse_removeSingleComment();
+            _fparse_removeSingleComment();
         }
         else {
             tar_file_buffer[tar_byteOffset++] = c;
@@ -338,7 +337,7 @@ void fparse_addChar(char c) {
 
 /// Removes block comments
 /// Increments file curser until block comment is closed
-void fparse_removeBlockComment(void) {
+void _fparse_removeBlockComment(void) {
     char d;
     uint needsLinePadding = 0;
     uint isFirstCharacter = 1;
@@ -374,7 +373,7 @@ void fparse_removeBlockComment(void) {
 
 /// Removes single line comments
 /// Increments file curser until new line
-void fparse_removeSingleComment(void) {
+void _fparse_removeSingleComment(void) {
     char d;
     while ((d=fgetc(tar_file_ptr)) != EOF) {
         if(d == '\n') {

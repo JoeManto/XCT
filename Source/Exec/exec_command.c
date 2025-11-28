@@ -3,26 +3,18 @@
 
 extern Arguments* PRO_ARGS;
 
-int validateCommand(void);
-
-void setBuildOption(char* opt) {
-    if (PRO_ARGS->noBuild) {
-        strcpy(opt, "test-without-building");
-    }
-    else {
-        strcpy(opt, "build-for-testing");
-    }
-}
+int _validateCommand(void);
+void _setBuildOption(char* opt);
 
 int buildCommand(char* commandBuffer) {
     int result;
-    if ((result = validateCommand()) != 0) {
+    if ((result = _validateCommand()) != 0) {
         ulog(warning, "Command failed to validate");
         return result;
     }
     
     char build[128];
-    setBuildOption(build);
+    _setBuildOption(build);
 
     sprintf(
         commandBuffer,
@@ -33,6 +25,15 @@ int buildCommand(char* commandBuffer) {
     return 0;
 }
 
-int validateCommand(void) {
+void _setBuildOption(char* opt) {
+    if (PRO_ARGS->noBuild) {
+        strcpy(opt, "test-without-building");
+    }
+    else {
+        strcpy(opt, "build-for-testing");
+    }
+}
+
+int _validateCommand(void) {
     return 0;
 }

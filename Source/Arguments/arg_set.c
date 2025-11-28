@@ -4,7 +4,7 @@
 
 extern Arguments* PRO_ARGS;
 
-void args_assignStringProp(char** dst, char* src);
+void _args_assignStringProp(char** dst, char* src);
 
 /// Sets the `matchingString` and `matchingType` arguments
 /// Returns Bool indicating success
@@ -23,7 +23,7 @@ uint8_t args_setMatchingProps(char* matchingString, char type) {
             break;
     };
     
-    args_assignStringProp(&PRO_ARGS->matchingString, matchingString);
+    _args_assignStringProp(&PRO_ARGS->matchingString, matchingString);
     PRO_ARGS->matchingType = matcher;
     return 1;
 }
@@ -35,7 +35,7 @@ uint8_t args_setTestTargetFileProp(char* target) {
         return 0;
     }
     
-    args_assignStringProp(&PRO_ARGS->testTargetFile, target);
+    _args_assignStringProp(&PRO_ARGS->testTargetFile, target);
     return 1;
 }
 
@@ -46,7 +46,7 @@ uint8_t args_setTargetProp(char* target) {
         return 0;
     }
 
-    args_assignStringProp(&PRO_ARGS->target, target);
+    _args_assignStringProp(&PRO_ARGS->target, target);
     return 1;
 }
 
@@ -57,7 +57,7 @@ uint8_t args_setSchemeProp(char* scheme) {
         return 0;
     }
     
-    args_assignStringProp(&PRO_ARGS->scheme, scheme);
+    _args_assignStringProp(&PRO_ARGS->scheme, scheme);
     return 1;
 }
 
@@ -68,7 +68,7 @@ uint8_t args_setOSProp(char* os) {
         return 0;
     }
     
-    args_assignStringProp(&PRO_ARGS->os, os);
+    _args_assignStringProp(&PRO_ARGS->os, os);
     return 1;
 }
 
@@ -79,7 +79,7 @@ uint8_t args_setDeviceProp(char* device) {
         return 0;
     }
     
-    args_assignStringProp(&PRO_ARGS->device, device);
+    _args_assignStringProp(&PRO_ARGS->device, device);
     return 1;
 }
 
@@ -118,7 +118,7 @@ uint8_t args_setProjectProps(char* projectTarget) {
         return 0;
     }
     
-    args_assignStringProp(&PRO_ARGS->projectTarget, projectTarget);
+    _args_assignStringProp(&PRO_ARGS->projectTarget, projectTarget);
 
     /*
     if (projectTarget == NULL) {
@@ -149,7 +149,7 @@ uint8_t args_setProjectProps(char* projectTarget) {
 
 /// Assigns any string arg
 /// Note: Passed value no longer needs to be maintained by caller and should be freed if dynamically allocated
-void args_assignStringProp(char** dst, char* src) {
+void _args_assignStringProp(char** dst, char* src) {
     size_t srcSize = strlen(src);
 
     if (srcSize < 1) {

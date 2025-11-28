@@ -11,6 +11,5 @@
 #include "../xct.h"
 
 uint env_parseContextFile(char* path, Arguments* args);
-char* buildArgumentString(char** components, uint numComponents);
 
 #endif /* env_context_parser_h */

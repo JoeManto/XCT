@@ -9,8 +9,8 @@
 #include "../Arguments/arg_set.h"
 #include "env_context_parser.h"
 
-char* env_parseContextLine(char* line, Arguments* args);
-char* buildArgumentString(char** components, uint numComponents) ;
+char* _env_parseContextLine(char* line, Arguments* args);
+char* _buildArgumentString(char** components, uint numComponents);
 char* commandComponents[ENV_CONTEXT_ARG_COUNT];
 
 ContextArgumentType* unusedComponents;
@@ -45,7 +45,7 @@ uint env_parseContextFile(char* path, Arguments* args) {
             break;
         }
         
-        char* command = env_parseContextLine(line_buffer, args);
+        char* command = _env_parseContextLine(line_buffer, args);
         if (command) {
             commandComponents[commandsIndex++] = command;
         }
@@ -54,7 +54,7 @@ uint env_parseContextFile(char* path, Arguments* args) {
     }
 
     if (commandsIndex > 0) {
-        char* argumentString = buildArgumentString(commandComponents, commandsIndex);
+        char* argumentString = _buildArgumentString(commandComponents, commandsIndex);
         args_setArgumentsForString(args, argumentString);
     } else {
         ulog(info, "No settings found");
@@ -71,7 +71,7 @@ uint env_parseContextFile(char* path, Arguments* args) {
     return 0;
 }
 
-char* env_parseContextLine(char* line, Arguments* args) {
+char* _env_parseContextLine(char* line, Arguments* args) {
     char* token = strtok(line, "=");
     if (!token) {
         return NULL;
@@ -115,7 +115,7 @@ char* env_parseContextLine(char* line, Arguments* args) {
     return args_argumentComponent(argument, value);
 }
 
-char* buildArgumentString(char** components, uint numComponents) {
+char* _buildArgumentString(char** components, uint numComponents) {
     uint size = 0;
     for (uint i = 0; i < numComponents; i++) {
         size += strlen(components[i]);

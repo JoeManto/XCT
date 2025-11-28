@@ -2,6 +2,7 @@
 #define ARGS_DOT_H
 
 #include <inttypes.h>
+#include <sys/types.h>
 
 #define ENV_CONTEXT_ARG_COUNT 7
 #define SAVE_TOKEN '@'

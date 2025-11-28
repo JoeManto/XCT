@@ -1,6 +1,8 @@
 #ifndef UTIL_DOT_H
 #define UTIL_DOT_H
 
+#include <sys/types.h>
+
 enum LogMessage {
     info = 0,
     warning,

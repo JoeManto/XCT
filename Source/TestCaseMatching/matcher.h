@@ -2,6 +2,7 @@
 #define MATCHER_DOT_H
 
 #include <inttypes.h>
+#include <sys/types.h>
 
 typedef struct Match {
     char * matchedLine;

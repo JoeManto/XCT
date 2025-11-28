@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "2600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "70186CB52A81C945008F6E3F"
-               BuildableName = "XCT-Product"
-               BlueprintName = "XCT-Product"
-               ReferencedContainer = "container:XCT.xcodeproj">
+               BlueprintIdentifier = "708458712C4B563800DFB9C7"
+               BuildableName = "ExampleMacApp"
+               BlueprintName = "ExampleMacApp"
+               ReferencedContainer = "container:ExampleMacApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +34,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      enableUBSanitizer = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,52 +45,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "70186CB52A81C945008F6E3F"
-            BuildableName = "XCT-Product"
-            BlueprintName = "XCT-Product"
-            ReferencedContainer = "container:XCT.xcodeproj">
+            BlueprintIdentifier = "708458712C4B563800DFB9C7"
+            BuildableName = "ExampleMacApp"
+            BlueprintName = "ExampleMacApp"
+            ReferencedContainer = "container:ExampleMacApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-t testTargetFile -s testExampleCase -P $testProject -S $testScheme -O $iOS"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-t XCT-Product"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-t XCT-Product -s example"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-S $testScheme"
-            isEnabled = "NO">
-         </CommandLineArgument>
-      </CommandLineArguments>
-      <AdditionalOptions>
-         <AdditionalOption
-            key = "DYLD_INSERT_LIBRARIES"
-            value = "/usr/lib/libgmalloc.dylib"
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "MallocGuardEdges"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "MallocStackLogging"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -102,10 +62,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "70186CB52A81C945008F6E3F"
-            BuildableName = "XCT-Product"
-            BlueprintName = "XCT-Product"
-            ReferencedContainer = "container:XCT.xcodeproj">
+            BlueprintIdentifier = "708458712C4B563800DFB9C7"
+            BuildableName = "ExampleMacApp"
+            BlueprintName = "ExampleMacApp"
+            ReferencedContainer = "container:ExampleMacApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
